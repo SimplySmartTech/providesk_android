@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "409951779804",
+    "firebase_url": "https://simplysmartcustomer.firebaseio.com",
+    "project_id": "simplysmartcustomer",
+    "storage_bucket": "simplysmartcustomer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409951779804:android:0832da7248d90998",
+        "android_client_info": {
+          "package_name": "com.simplysmart.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409951779804-ip817p312amfpfv798pon1r30dt2f3p5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simplysmart.app",
+            "certificate_hash": "f3b01d6bf5118f94c92ef0486239e1b5e1db3038"
+          }
+        },
+        {
+          "client_id": "409951779804-4vn4nncrhn5naje3n82p7u8l9iigvq7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyjypPqV-SYYds5IUPDnMmamQG5ARd_BI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409951779804-4vn4nncrhn5naje3n82p7u8l9iigvq7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

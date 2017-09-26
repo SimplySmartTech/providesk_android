@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bw_dashboard_bg">
+
+    <TextView
+        android:id="@+id/unit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/bw_color_white"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/frame_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/bots_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="130dp"
+            android:src="@drawable/bw_bots_img_a" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top">
+
+            <ImageView
+                android:id="@+id/menu_ewallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="200dp"
+                android:src="@drawable/ewallet_payment" />
+
+            <ImageView
+                android:id="@+id/menu_electricity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/shopping" />
+
+            <ImageView
+                android:id="@+id/menu_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="95dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/amenities" />
+
+            <ImageView
+                android:id="@+id/menu_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="85dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/notification" />
+
+            <ImageView
+                android:id="@+id/menu_helpdesk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/helpdesk" />
+
+            <ImageView
+                android:id="@+id/menu_planner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="195dp"
+                android:src="@drawable/parking" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/frame_menu"
+        android:layout_centerHorizontal="true"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:src="@drawable/app_logo_main" />
+
+    <LinearLayout
+        android:id="@+id/poweredBy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:padding="6dp"
+            android:layout_marginTop="1dp"
+            android:text="Powered by "
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:src="@drawable/app_logo_main" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

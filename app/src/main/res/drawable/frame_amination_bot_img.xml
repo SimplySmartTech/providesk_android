@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:repeatCount="infinite"
+    android:variablePadding="true">
+
+    <item
+        android:drawable="@drawable/bw_bots_img_b"
+        android:duration="@integer/frame_bot_img_anim_duration" />
+    <item
+        android:drawable="@drawable/bw_bots_img_a"
+        android:duration="@integer/frame_bot_img_anim_duration" />
+
+</animation-list>

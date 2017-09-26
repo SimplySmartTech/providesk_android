@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bw_color_white">
+
+    <include layout="@layout/include_prepaid_water" />
+
+    <include layout="@layout/include_postpaid_water" />
+
+    <include layout="@layout/custom_progress_dialog" />
+
+    <include layout="@layout/custom_error_layout" />
+
+</RelativeLayout>

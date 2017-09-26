@@ -1,0 +1,219 @@
+<resources>
+    <!--<string name="app_name">Simply Smart</string>-->
+
+    <string name="hello_world">Hello world!</string>
+    <string name="splash">Splash Screen!</string>
+    <string name="coming_soon">Coming soon!</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_save">Save</string>
+    <string name="ok_button">OK</string>
+
+    <!-- Navigation drawer contents-->
+    <!--<string-array name="drawer_titles">-->
+    <!--<item>Home</item>-->
+    <!--<item>Helpdesk</item>-->
+    <!--<item>Notification</item>-->
+    <!--<item>Electricity</item>-->
+    <!--<item>Water</item>-->
+    <!--<item>eWallet</item>-->
+    <!--<item>Planner</item>-->
+    <!--</string-array>-->
+
+    <!--<array name="drawer_icons">-->
+    <!--<item>@string/icon_myflat</item>-->
+    <!--<item>@string/icon_helpdesk</item>-->
+    <!--<item>@string/icon_notification</item>-->
+    <!--<item>@string/icon_electricity</item>-->
+    <!--<item>@string/icon_water</item>-->
+    <!--<item>@string/icon_ewallet</item>-->
+    <!--<item>@string/icon_planner</item>-->
+    <!--</array>-->
+
+    <array name="unit_icons">
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+        <item>@string/icon_myflat</item>
+    </array>
+
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <!-- login screen content-->
+    <string name="txt_login">Login</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="txt_forgot_password">Forgot your password?</string>
+    <string name="txt_click_here">&#160;Click Here</string>
+
+
+    <!-- notification screen content -->
+    <string name="txt_notification">Notifications</string>
+    <string name="click_here_for_more_detail">Click here for more detail</string>
+
+
+    <!-- Helpdesk screen-->
+    <string name="txt_helpdesk">Helpdesk</string>
+    <string name="txt_open">Open</string>
+    <string name="txt_close">Closed</string>
+    <string name="txt_add">Add</string>
+
+
+    <!-- add new complaint list screen content-->
+
+    <string name="txt_electrical">Electrical</string>
+    <string name="txt_civil_work">Civil Work</string>
+    <string name="txt_water">Water</string>
+    <string name="txt_cable_tv">Cable tv</string>
+    <string name="txt_citizen_billing">Billing</string>
+    <string name="txt_infra_complaints">Infra</string>
+    <string name="txt_it">IT</string>
+    <string name="txt_others">Others</string>
+
+    <!-- new complaint detail screen content-->
+    <string name="txt_complaint">Complaint</string>
+    <string name="txt_request">Request</string>
+    <string name="txt_submit">Submit</string>
+    <string name="txt_capture_image_selection">Please Select Your Choice</string>
+
+
+    <!-- MyFlat screen content-->
+    <string name="txt_myflat">My flat</string>
+
+    <!-- Icon text string-->
+    <string name="icon_helpdesk">&#xe600;</string>
+    <string name="icon_electricity">&#xe602;</string>
+    <string name="icon_shoping">&#xe603;</string>
+    <string name="icon_dth">&#xe604;</string>
+    <string name="icon_ewallet">&#xe60a;</string>
+    <string name="icon_water">&#xe60b;</string>
+    <string name="icon_myflat">&#xe606;</string>
+    <string name="icon_notification">&#xe607;</string>
+    <string name="icon_send">&#xe619;</string>
+    <string name="icon_civil">&#xe611;</string>
+    <string name="icon_billing">&#xe60d;</string>
+    <string name="icon_infra">&#xe613;</string>
+    <string name="icon_it">&#xe612;</string>
+    <string name="icon_others">&#xe616;</string>
+    <string name="icon_lock">&#xe615;</string>
+    <string name="icon_unlock">&#xe61d;</string>
+    <string name="icon_smile">&#xe61a;</string>
+    <string name="icon_sad">&#xe618;</string>
+    <string name="icon_photo">&#xe617;</string>
+    <string name="icon_add">&#xe60c;</string>
+    <string name="icon_bulb">&#xe61f;</string>
+    <string name="icon_slash">&#xe623;</string>
+    <string name="icon_camera">&#xe611;</string>
+    <string name="icon_meter">&#xe621;</string>
+    <string name="icon_assign">&#xe61c;</string>
+    <string name="icon_rupee">&#xe622;</string>
+    <string name="icon_thunder">&#xe625;</string>
+    <string name="icon_planner">&#xe626;</string>
+    <string name="icon_sign_out">&#xf011;</string>
+    <string name="icon_calendar_normal">&#xE62D;</string>
+    <string name="icon_calendar_selected">&#xE62C;</string>
+    <string name="icon_wallet_topup">&#xE628;</string>
+    <string name="icon_maintenance">&#xE62E;</string>
+
+    <string name="icon_left_arrow">&#xF104;</string>
+    <string name="icon_right_arrow">&#xF105;</string>
+    <string name="icon_top_arrow">&#xF106;</string>
+    <string name="icon_bottom_arrow">&#xF107;</string>
+
+    <!-- Titles-->
+    <string name="title_electricity">Electricity</string>
+    <string name="title_water">Water</string>
+    <string name="title_notification">Notification</string>
+    <string name="title_helpdesk">Helpdesk</string>
+    <string name="title_ewallet">eWallet</string>
+    <string name="title_planner">Planner</string>
+
+    <string name="title_graph">Graph</string>
+    <string name="title_notification_details">Notification detail</string>
+    <string name="title_complaint_details">Complaint detail</string>
+    <string name="title_complaint_images">Complaint Images</string>
+    <string name="title_graph_type_billing">Billing</string>
+    <string name="title_graph_type_consumption">Consumption</string>
+    <string name="title_complaint_feedback">Feedback</string>
+
+    <!-- eWallet Screen content-->
+    <string name="txt_wallet_balance">Current Balance</string>
+    <string name="txt_wallet_statement">Transection</string>
+    <string name="txt_recharge_your_wallet">Recharge your Wallet</string>
+
+    <!-- Common error messages-->
+    <string name="alert_sign_out">Are you sure want to Sign Out?</string>
+    <string name="alert_save_planner_data">Do you want to save changes before exit?</string>
+    <string name="error_no_internet_connection">Please check your internet connection.</string>
+    <string name="error_in_network">Oops! something went wrong.</string>
+    <string name="error_enter_mobile_number">Please enter your Login ID (Mobile Number).</string>
+    <string name="error_invalid_mobile_number">Invalid Mobile Number, Please check.</string>
+    <string name="error_enter_pin_number">Please enter your 6 digit Pin.</string>
+    <string name="error_invalid_pin_number">Pin should be 6 digits.</string>
+    <string name="Rs">\u20B9</string>
+    <string name="rs">\u20A8</string>
+
+    <string name="txt_notification_electricity">Time to top up dude, unless you want to miss your favorite TV show!
+        You have only X days of power remaining.</string>
+
+    <string name="txt_notification_water">Time to top up dude,You have only X days of water remaining.</string>
+
+    <!-- Temp data -->
+    <string name="Rs_one">- \u20B9 1200</string>
+    <string name="Rs_two">- \u20B9 800</string>
+    <string name="Rs_three">+ \u20B9 2500</string>
+    <string name="Rs_amc">\u20B9 15000</string>
+
+    <!-- GCM file strings-->
+    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>
+    <string name="registering_message">Generating InstanceID token...</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+
+    <string name="update_app_message">app has a new update available on the Play Store.
+        Stay up to date with the App to enjoy the latest features and best performance.</string>
+
+    <string name="error_enter_mandatory">All fields are mandatory.</string>
+
+    <string name="error_current_password">Please enter your current password first.</string>
+    <string name="error_new_password">Please enter your new password.</string>
+    <string name="error_confirm_password">Please enter your confirm password.</string>
+    <string name="error_match_password">New password &amp; confirm password should be same.</string>
+
+    <string-array name="amenities_spinner">
+        <item>Select</item>
+        <item>Event at Club House</item>
+        <item>Book Tennis Court</item>
+        <item>Book Squash Court</item>
+
+        <!--<item>Register Guests</item>-->
+    </string-array>
+
+    <string-array name="priority">
+        <item>Regular</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+</resources>

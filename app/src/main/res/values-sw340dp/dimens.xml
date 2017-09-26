@@ -1,0 +1,13 @@
+<resources>
+
+    <dimen name="circle_one">110dp</dimen>
+    <dimen name="circle_two">115dp</dimen>
+    <dimen name="circle_three">130dp</dimen>
+
+    <dimen name="circle_one_margin_end">-25dp</dimen>
+    <dimen name="circle_two_margin_start">-30dp</dimen>
+    <dimen name="circle_three_margin_top">40dp</dimen>
+
+    <dimen name="bottom_layout_height">100dp</dimen>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="frame_anim_duration">300</integer>
+    <integer name="frame_bot_img_anim_duration">1500</integer>
+
+    <!-- fragment_add_complaint_selection -->
+
+    <integer name="icon_text_size">35</integer>
+    <integer name="caption_text_size">14</integer>
+    <integer name="caption_padding">5</integer>
+    <integer name="icon_padding">15</integer>
+
+</resources>

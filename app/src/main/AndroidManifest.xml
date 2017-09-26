@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.simplysmart.app">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:name=".config.GlobalData"
+        android:allowBackup="true"
+        android:icon="${appIcon}"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.AddNewComplaintActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
+
+        <activity
+            android:name=".activity.ComplaintDetailScreenActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".activity.PhotoGalleryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ComplaintFeedbackActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden" />
+
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ReadingDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.NotificationScreenActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.NotificationDetailScreenActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.HelpDeskScreenActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ImageViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.CreateComplaintActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <activity
+            android:name=".activity.ElectricityBillDetailsScreenActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+        <service android:name="com.simplysmart.app.services.FetchCategories" />
+
+        <!-- Push Notification GCM Services & Receivers-->
+        <service android:name="com.simplysmart.app.gcm.RegistrationIntentService" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.simplysmart.app" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.simplysmart.app.gcm.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <!--support pre-4.4 KitKat devices, add the following action to the intent filter declaration-->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.google.android.gcm.demo" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.simplysmart.app.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+    </application>
+
+</manifest>

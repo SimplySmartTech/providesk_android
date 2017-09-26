@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bw_color_white">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/recycler_view"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/ll_bottom"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_light_grey" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/recycler_view"
+            android:layout_alignTop="@id/recycler_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_light_grey" />
+
+
+        <Switch
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/bw_color_black"
+            android:text="Vacation Mode"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

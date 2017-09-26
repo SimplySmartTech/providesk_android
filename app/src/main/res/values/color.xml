@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryDark">@color/primary_dark</color>
+    <color name="colorAccent">@color/accent</color>
+
+    <color name="bw_color_white">#FFFFFF</color>
+    <color name="bw_color_black">#303030</color>
+    <color name="bw_color_dark_black">#000000</color>
+    <color name="bw_color_light_gray">#d0d0d0</color>
+    <color name="bw_color_dark_red">#FF3300</color>
+    <color name="bw_color_red">#FF3333</color>
+    <color name="bw_color_dark_gray">#909090</color>
+    <color name="bw_color_darker_gray">#707070</color>
+    <color name="bw_color_white_semi_trans">#40FFFFFF</color>
+
+    <color name="bw_color_green">#8CC63F</color>
+    <color name="bw_color_blue">#33CCFF</color>
+
+    <color name="bw_color_yellow">#FFC20E</color>
+    <color name="bw_color_purple">#CC68BD</color>
+    <color name="bw_color_dark_purple">#AA469B</color>
+    <color name="bw_color_dark_green">#009F55</color>
+    <color name="bw_color_orange">#FAAD16</color>
+
+    <color name="graph_line_user_average">#90009F55</color>
+    <color name="graph_line_township_average">#90CC68BD</color>
+
+    <color name="bg_color">#F9D81C</color>
+
+    <color name="color_transparent">#00000000</color>
+    <color name="color_darker_gray">#8c8c8c</color>
+    <color name="color_gray">#95a5a6</color>
+    <color name="color_light_grey">#d3d3d3</color>
+    <color name="color_deep_blue">#1c3f95</color>
+    <color name="color_button_green">#5fc73b</color>
+    <color name="color_darkest_gray">#606060</color>
+
+    <color name="priority_regular">#428bca</color>
+    <color name="priority_high">#d9534f</color>
+    <color name="priority_medium">#f0ad4e</color>
+    <color name="priority_low">#999999</color>
+
+</resources>

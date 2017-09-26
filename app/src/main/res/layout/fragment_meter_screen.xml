@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bw_color_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/txt_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/Rs"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@color/bw_color_dark_gray"
+            android:textColor="@color/bw_color_white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txt_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="80dp"
+            android:text="@string/Rs"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txt_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="80dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_slash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="80dp"
+            android:textSize="20sp" />
+
+
+        <com.simplysmart.app.custom.MeterGauge
+            android:id="@+id/speedometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:gravity="top">
+
+        <TextView
+            android:id="@+id/val_days_left"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="25"
+            android:textColor="@color/bw_color_red"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_days_left"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/val_days_left"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:text="Days Left"
+            android:textColor="@color/bw_color_red"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/sep_one"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/val_days_left"
+            android:background="@color/bw_color_dark_gray"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/val_daily_avg"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/sep_one"
+            android:gravity="center"
+            android:text="15"
+            android:textColor="@color/bw_color_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_daily_avg"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/val_daily_avg"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/sep_one"
+            android:gravity="center"
+            android:text="Daily Average"
+            android:textColor="@color/bw_color_black"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/sep_two"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/val_daily_avg"
+            android:background="@color/bw_color_dark_gray"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/val_unit_used"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/sep_two"
+            android:gravity="center"
+            android:text="115"
+            android:textColor="@color/bw_color_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_unit_used"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/val_unit_used"
+            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/sep_two"
+            android:gravity="center"
+            android:text="Unit Used"
+            android:textColor="@color/bw_color_black"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/sep_three"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/val_unit_used"
+            android:background="@color/bw_color_dark_gray"
+            android:gravity="center" />
+
+
+        <TextView
+            android:id="@+id/btn_usage_graph"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/sep_three"
+            android:background="@drawable/ractangular_border_red"
+            android:gravity="center"
+            android:textColor="@color/bw_color_black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/txt_usage_graph"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/val_unit_used"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/sep_three"
+            android:gravity="center"
+            android:text="know your Usage"
+            android:textColor="@color/bw_color_black"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
