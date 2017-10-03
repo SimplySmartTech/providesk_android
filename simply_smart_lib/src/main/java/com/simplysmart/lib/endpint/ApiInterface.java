@@ -16,6 +16,7 @@ import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
 import com.simplysmart.lib.model.login.ChangePasswordRequest;
 import com.simplysmart.lib.model.login.LoginRequest;
 import com.simplysmart.lib.model.login.LoginResponse;
+import com.simplysmart.lib.model.login.OtpRequest;
 import com.simplysmart.lib.model.notification.NotificationRequest;
 import com.simplysmart.lib.model.notification.NotificationResponse;
 import com.simplysmart.lib.model.planner.PlannerRequest;
@@ -54,6 +55,20 @@ public interface ApiInterface {
 
     @GET("/api/passwords/reset_resident")
     Call<LoginResponse> resetPassword(@Query("username") String username);
+
+
+    //Generate OTP
+    @GET("/api/residents/{residentId}/send_otp")
+    Call<CommonResponse> generateOTP(@Path("residentId") String residentId,
+                                     @Query("subdomain") String subDomain);
+
+
+    //Verify OTP
+    @POST("/api/residents/{residentId}/verify_otp")
+    Call<LoginResponse> verifyOTP(@Path("residentId") String residentId,
+                                  @Query("subdomain") String subDomain,
+                                  @Body OtpRequest request);
+
 
     //Fetch categories
     @GET("/cms/categories")
@@ -175,12 +190,10 @@ public interface ApiInterface {
                                   @Query("site_id") String site_id);
 
 
-
     @GET("/api/bills/{billId}")
     Call<BillDetailResponse> getBillDetails(@Path("billId") String billId,
                                             @Query("subdomain") String subDomain,
                                             @Query("site_id") String site_id);
-
 
 
 }

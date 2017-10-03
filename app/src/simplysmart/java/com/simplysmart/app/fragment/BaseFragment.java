@@ -10,8 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +17,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.simplysmart.app.R;
-import com.simplysmart.app.activity.DashboardActivity;
-import com.simplysmart.app.config.AppConstant;
+import com.simplysmart.app.activity.HelpDeskScreenActivity;
 import com.simplysmart.app.custom.CustomProgressDialog;
-import com.simplysmart.app.custom.TypefaceSpan;
 import com.simplysmart.app.dialog.AlertDialogStandard;
 import com.simplysmart.lib.common.CommonMethod;
 
@@ -54,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity) _activity).getSupportActionBar().show();
-        DashboardActivity.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        HelpDeskScreenActivity.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
         setHeaderTitle(getHeaderTitle());
         setHeaderColor(getHeaderColor());
@@ -74,9 +70,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void setHeaderTitle(String title) {
-        SpannableString titleString = new SpannableString(title);
-        titleString.setSpan(new TypefaceSpan(_activity, AppConstant.FONT_EUROSTILE_REGULAR_MID), 0, titleString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ((AppCompatActivity) _activity).getSupportActionBar().setTitle(title);
+//        SpannableString titleString = new SpannableString(title);
+//        titleString.setSpan(new TypefaceSpan(_activity, AppConstant.FONT_EUROSTILE_REGULAR_MID), 0, titleString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ((AppCompatActivity) _activity).getSupportActionBar().setTitle("ProviDesk");
     }
 
     //Method used to parse error response from server

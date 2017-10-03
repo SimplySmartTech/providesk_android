@@ -75,7 +75,7 @@ public class SplashActivity extends BaseActivity {
                     if (newInstallation) {
                         i = new Intent(SplashActivity.this, ChangePasswordActivity.class);
                     } else {
-                        i = new Intent(SplashActivity.this, DashboardActivity.class);
+                        i = new Intent(SplashActivity.this, HelpDeskScreenActivity.class);
                     }
                     startActivity(i);
                     finish();

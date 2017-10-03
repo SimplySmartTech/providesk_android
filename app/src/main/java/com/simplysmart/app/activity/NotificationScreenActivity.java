@@ -225,7 +225,7 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
 
     @Override
     protected int getStatusBarColor() {
-        return R.color.bw_color_yellow;
+        return R.color.colorPrimaryDark;
     }
 
     @Override

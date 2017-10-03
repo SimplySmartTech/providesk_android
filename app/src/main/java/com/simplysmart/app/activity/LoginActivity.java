@@ -28,12 +28,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.simplysmart.app.R;
 import com.simplysmart.app.config.StringConstants;
+import com.simplysmart.app.dialog.AlertDialogRegistrationConfirmation;
 import com.simplysmart.app.gcm.QuickstartPreferences;
 import com.simplysmart.app.gcm.RegistrationIntentService;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.CommonMethod;
 import com.simplysmart.lib.common.DebugLog;
 import com.simplysmart.lib.config.NetworkUtilities;
+import com.simplysmart.lib.model.common.CommonResponse;
 import com.simplysmart.lib.model.login.AccessPolicy;
 import com.simplysmart.lib.model.login.LoginResponse;
 import com.simplysmart.lib.model.login.Resident;
@@ -58,14 +60,34 @@ public class LoginActivity extends BaseActivity {
     private RelativeLayout loginInputLayout;
     private TextView btn_forgot_password;
 
+    private boolean registrationFlag = false;
+
+    private String userId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        userId = "";
+
         context = LoginActivity.this;
         initializeWidgets();
         buttonLogin.setOnClickListener(loginClick);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(Registration,
+                new IntentFilter("Registration"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(Registration);
+        super.onDestroy();
     }
 
     @Override
@@ -211,19 +233,32 @@ public class LoginActivity extends BaseActivity {
                                 if (response.isAuthenticated()) {
                                     llCompanySpinner.setVisibility(View.GONE);
 
-                                    setUserData(response);
+                                    Resident resident = response.getData().getResident();
 
-                                    SharedPreferences ResetUserPreferences = LoginActivity.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
-                                    boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
-
-                                    Intent i;
-                                    if (newInstallation) {
-                                        i = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                    if (resident != null && !resident.isActive()) {
+                                        userId = resident.getId();
+                                        subDomain = response.getSubdomain();
+                                        CreateRequest.getInstance().loadSessionData(resident.getApi_key(), resident.getAuth_token(), response.getSubdomain(), "");
+                                        registrationFlag = true;
+                                        AlertDialogRegistrationConfirmation
+                                                .newInstance(getString(R.string.app_name), "Account Deactivated!\n Please verify your mobile number to activate you Providesk Account", "Exit", "GET OTP")
+                                                .show(getSupportFragmentManager(), "");
                                     } else {
-                                        i = new Intent(LoginActivity.this, DashboardActivity.class);
+
+                                        setUserData(response);
+
+                                        SharedPreferences ResetUserPreferences = LoginActivity.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
+                                        boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
+
+                                        Intent i;
+                                        if (newInstallation) {
+                                            i = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                        } else {
+                                            i = new Intent(LoginActivity.this, HelpDeskScreenActivity.class);
+                                        }
+                                        startActivity(i);
+                                        finish();
                                     }
-                                    startActivity(i);
-                                    finish();
                                 } else {
                                     llCompanySpinner.setVisibility(View.VISIBLE);
 
@@ -297,19 +332,30 @@ public class LoginActivity extends BaseActivity {
 
                                 if (response.getData() != null) {
 
-                                    setUserData(response);
-
-                                    SharedPreferences ResetUserPreferences = LoginActivity.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
-                                    boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
-
-                                    Intent i;
-                                    if (newInstallation) {
-                                        i = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                    Resident resident = response.getData().getResident();
+                                    if (resident != null && !resident.isActive()) {
+                                        userId = resident.getId();
+                                        subDomain = response.getSubdomain();
+                                        CreateRequest.getInstance().loadSessionData(resident.getApi_key(), resident.getAuth_token(), response.getSubdomain(), "");
+                                        registrationFlag = true;
+                                        AlertDialogRegistrationConfirmation
+                                                .newInstance(getString(R.string.app_name), "Account Deactivated!\n Please verify your mobile number to activate you Providesk Account", "Exit", "GET OTP")
+                                                .show(getSupportFragmentManager(), "");
                                     } else {
-                                        i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                        setUserData(response);
+
+                                        SharedPreferences ResetUserPreferences = LoginActivity.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
+                                        boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
+
+                                        Intent i;
+                                        if (newInstallation) {
+                                            i = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                        } else {
+                                            i = new Intent(LoginActivity.this, HelpDeskScreenActivity.class);
+                                        }
+                                        startActivity(i);
+                                        finish();
                                     }
-                                    startActivity(i);
-                                    finish();
                                 }
                             }
 
@@ -479,5 +525,53 @@ public class LoginActivity extends BaseActivity {
                     });
             resource_Dialog.show();
         }
+    }
+
+    private BroadcastReceiver Registration = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            dismissActivitySpinner();
+            boolean isContinue = intent.getBooleanExtra("continue", false);
+
+            if (registrationFlag) {
+                registrationFlag = false;
+                if (isContinue) {
+                    if (NetworkUtilities.isInternet(context) && !userId.equalsIgnoreCase("")) {
+                        generateOtpRequest(userId);
+                    } else {
+                        displayMessage(getString(R.string.error_no_internet_connection));
+                    }
+                } else {
+                    finish();
+                }
+            }
+        }
+    };
+
+    private void generateOtpRequest(final String userId) {
+
+        showActivitySpinner();
+
+        CreateRequest.getInstance().generateOtpRequest(userId,
+                subDomain,
+                new ApiCallback<CommonResponse>() {
+
+                    @Override
+                    public void onSuccess(CommonResponse response) {
+                        dismissActivitySpinner();
+                        Intent intent = new Intent(LoginActivity.this, OtpVerificationScreen.class);
+                        intent.putExtra("userId", userId);
+                        intent.putExtra("subDomain", subDomain);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        dismissActivitySpinner();
+                        displayMessage(error);
+                    }
+                });
     }
 }

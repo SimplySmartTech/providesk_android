@@ -28,6 +28,7 @@ import com.simplysmart.lib.model.helpdesk.NewComplaint;
 import com.simplysmart.lib.model.login.ChangePasswordRequest;
 import com.simplysmart.lib.model.login.LoginRequest;
 import com.simplysmart.lib.model.login.LoginResponse;
+import com.simplysmart.lib.model.login.OtpRequest;
 import com.simplysmart.lib.model.notification.NotificationRequest;
 import com.simplysmart.lib.model.notification.NotificationResponse;
 import com.simplysmart.lib.model.planner.Planner;
@@ -155,6 +156,62 @@ public class CreateRequest {
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void generateOtpRequest(String userId, String subDomain, final ApiCallback<CommonResponse> callback) {
+
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+
+        Call<CommonResponse> loginResponseCall = apiInterface.generateOTP(
+                userId,
+                subDomain);
+
+        loginResponseCall.enqueue(new Callback<CommonResponse>() {
+
+            @Override
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    APIError error = ErrorUtils.parseError(response);
+                    callback.onFailure(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void verifyOtpRequest(String userId, String subDomain, OtpRequest request, final ApiCallback<LoginResponse> callback) {
+
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<LoginResponse> responseCall = apiInterface.verifyOTP(
+                userId,
+                subDomain,
+                request);
+
+        responseCall.enqueue(new Callback<LoginResponse>() {
+
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    APIError error = ErrorUtils.parseError(response);
+                    callback.onFailure(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
 
             }
         });

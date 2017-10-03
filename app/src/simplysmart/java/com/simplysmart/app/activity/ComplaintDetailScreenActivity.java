@@ -97,7 +97,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Help desk");
+        getSupportActionBar().setTitle("ProviDesk");
 
         priorityColorMap.put("Regular", R.drawable.circle_priority_regular);
         priorityColorMap.put("High", R.drawable.circle_priority_high);
@@ -122,7 +122,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (isFromPush) {
-            Intent intent = new Intent(ComplaintDetailScreenActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(ComplaintDetailScreenActivity.this, HelpDeskScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -149,7 +149,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             case android.R.id.home:
 
                 if (isFromPush) {
-                    Intent intent = new Intent(ComplaintDetailScreenActivity.this, DashboardActivity.class);
+                    Intent intent = new Intent(ComplaintDetailScreenActivity.this, HelpDeskScreenActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();

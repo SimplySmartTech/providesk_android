@@ -50,7 +50,7 @@ public class NotificationDetailScreenActivity extends BaseActivity {
 
     @Override
     protected int getStatusBarColor() {
-        return R.color.bw_color_yellow;
+        return R.color.bw_color_red;
     }
 
     @Override

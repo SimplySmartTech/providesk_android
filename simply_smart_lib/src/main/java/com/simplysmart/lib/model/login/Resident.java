@@ -29,9 +29,23 @@ public class Resident implements Parcelable {
     private ArrayList<Unit> sites;
     private String booking_id;
 
+    private boolean active = false;
+
     private String profile_photo_url;
 
-    public Resident(Parcel in) {
+    public Resident() {
+
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    protected Resident(Parcel in) {
         id = in.readString();
         name = in.readString();
         email = in.readString();
@@ -48,11 +62,8 @@ public class Resident implements Parcelable {
         units = in.createTypedArrayList(Unit.CREATOR);
         sites = in.createTypedArrayList(Unit.CREATOR);
         booking_id = in.readString();
+        active = in.readByte() != 0;
         profile_photo_url = in.readString();
-    }
-
-    public Resident() {
-
     }
 
     @Override
@@ -73,6 +84,7 @@ public class Resident implements Parcelable {
         dest.writeTypedList(units);
         dest.writeTypedList(sites);
         dest.writeString(booking_id);
+        dest.writeByte((byte) (active ? 1 : 0));
         dest.writeString(profile_photo_url);
     }
 

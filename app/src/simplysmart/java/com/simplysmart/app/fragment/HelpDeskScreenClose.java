@@ -80,7 +80,7 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
 
     @Override
     protected String getHeaderTitle() {
-        return "Helpdesk";
+        return "History";
     }
 
     @Override

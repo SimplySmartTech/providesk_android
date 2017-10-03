@@ -64,7 +64,7 @@ android {
             versionCode 1
             versionName "1.0"
 
-            resValue "string", "app_name", "Providesk"
+            resValue "string", "app_name", "ProviDesk"
             manifestPlaceholders = [
                     appIcon: "@mipmap/ic_launcher",
             ]
