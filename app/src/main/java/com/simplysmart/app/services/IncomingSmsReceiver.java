@@ -49,7 +49,7 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                         // duration);
                         // toast.show();
 
-                        Intent smsIntent = new Intent("com.simplysmart.app.mysmsreceiver");
+                        Intent smsIntent = new Intent("smsreceiver");
                         smsIntent.putExtra("SMS_MESSAGE", message);
 
                         LocalBroadcastManager.getInstance(context).sendBroadcast(smsIntent);

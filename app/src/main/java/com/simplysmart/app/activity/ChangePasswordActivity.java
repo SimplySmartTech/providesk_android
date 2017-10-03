@@ -127,7 +127,7 @@ public class ChangePasswordActivity extends BaseActivity {
             SharedPreferences.Editor editor = ResetUserPreferences.edit();
             editor.putBoolean("newInstallation", false);
             editor.apply();
-            Intent i = new Intent(ChangePasswordActivity.this, DashboardActivity.class);
+            Intent i = new Intent(ChangePasswordActivity.this, HelpDeskScreenActivity.class);
             startActivity(i);
             finish();
         }

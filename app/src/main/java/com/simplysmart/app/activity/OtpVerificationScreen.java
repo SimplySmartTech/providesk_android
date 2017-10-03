@@ -61,7 +61,7 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verification_screen);
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mySmsReceiver, new IntentFilter("com.simplysmart.app.mysmsreceiver"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mySmsReceiver, new IntentFilter("smsreceiver"));
 
         if (getIntent() != null && getIntent().getExtras() != null) {
             userId = getIntent().getStringExtra("userId");
