@@ -7,7 +7,7 @@
 
     <!--<include layout="@layout/toolbar" />-->
 
-    <com.simplysmart.app.custom.TouchImageView
+    <com.simplysmart.providesk.custom.TouchImageView
         android:id="@+id/viewImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

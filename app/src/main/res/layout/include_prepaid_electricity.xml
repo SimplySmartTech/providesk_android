@@ -38,7 +38,7 @@
                 android:orientation="vertical"
                 android:padding="7dp">
 
-                <com.simplysmart.app.custom.ProgressBarView
+                <com.simplysmart.providesk.custom.ProgressBarView
                     android:id="@+id/bar1"
                     android:layout_width="90dp"
                     android:layout_height="170dp"

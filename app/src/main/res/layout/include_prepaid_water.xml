@@ -29,7 +29,7 @@
                 android:orientation="horizontal"
                 android:visibility="visible">
 
-                <com.simplysmart.app.custom.ProgressBarView
+                <com.simplysmart.providesk.custom.ProgressBarView
                     android:id="@+id/bar1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

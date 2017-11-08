@@ -52,7 +52,7 @@
             android:textSize="20sp" />
 
 
-        <com.simplysmart.app.custom.MeterGauge
+        <com.simplysmart.providesk.custom.MeterGauge
             android:id="@+id/speedometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -240,7 +240,7 @@
                         android:textSize="18sp" />
                 </RelativeLayout>
 
-                <com.simplysmart.app.custom.HorizontalListView
+                <com.simplysmart.providesk.custom.HorizontalListView
                     android:id="@+id/imageListView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -248,7 +248,7 @@
                     android:scrollbars="horizontal"
                     widget:dividerWidth="3dp">
 
-                </com.simplysmart.app.custom.HorizontalListView>
+                </com.simplysmart.providesk.custom.HorizontalListView>
             </LinearLayout>
 
 

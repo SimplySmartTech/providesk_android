@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simplysmart.app">
+    package="com.simplysmart.providesk">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -99,10 +99,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
-        <service android:name="com.simplysmart.app.services.FetchCategories" />
+        <service android:name=".services.FetchCategories" />
 
         <!-- Push Notification GCM Services & Receivers-->
-        <service android:name="com.simplysmart.app.gcm.RegistrationIntentService" />
+        <service android:name=".gcm.RegistrationIntentService" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -110,23 +110,24 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.simplysmart.app" />
+                <category android:name="com.simplysmart.providesk" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="com.simplysmart.app.gcm.MyGcmListenerService"
+            android:name=".gcm.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
                 <!--support pre-4.4 KitKat devices, add the following action to the intent filter declaration-->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.google.android.gcm.demo" />
+                <category android:name="com.simplysmart.providesk" />
             </intent-filter>
         </service>
+
         <service
-            android:name="com.simplysmart.app.gcm.MyInstanceIDListenerService"
+            android:name=".gcm.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -143,7 +144,7 @@
             android:enabled="true" />
 
         <!-- SMS RECEIVER -->
-        <receiver android:name="com.simplysmart.app.services.IncomingSmsReceiver">
+        <receiver android:name=".services.IncomingSmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>

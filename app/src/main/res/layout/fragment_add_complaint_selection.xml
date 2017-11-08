@@ -11,7 +11,7 @@
         android:background="@color/bw_color_white"
         android:padding="20dp">
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_electrical"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -26,9 +26,9 @@
             custom:text_caption="@string/txt_electrical"
             custom:text_icon="@string/icon_electricity">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_civilwork"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -43,10 +43,10 @@
             custom:text_caption="@string/txt_civil_work"
             custom:text_icon="@string/icon_civil">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_water"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -61,9 +61,9 @@
             custom:text_caption="@string/txt_water"
             custom:text_icon="@string/icon_water">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_cabletv"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -79,9 +79,9 @@
             custom:text_caption="@string/txt_cable_tv"
             custom:text_icon="@string/icon_dth">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_citizen_billing"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -97,10 +97,10 @@
             custom:text_caption="@string/txt_citizen_billing"
             custom:text_icon="@string/icon_billing">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_infra"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -116,9 +116,9 @@
             custom:text_caption="@string/txt_infra_complaints"
             custom:text_icon="@string/icon_infra">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_it"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -134,10 +134,10 @@
             custom:text_caption="@string/txt_it"
             custom:text_icon="@string/icon_it">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
 
-        <com.simplysmart.app.custom.CustomButtonView
+        <com.simplysmart.providesk.custom.CustomButtonView
             android:id="@+id/btn_other"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -153,7 +153,7 @@
             custom:text_caption="@string/txt_others"
             custom:text_icon="@string/icon_others">
 
-        </com.simplysmart.app.custom.CustomButtonView>
+        </com.simplysmart.providesk.custom.CustomButtonView>
 
     </RelativeLayout>
 </RelativeLayout>

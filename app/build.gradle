@@ -3,14 +3,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
-        applicationId "com.simplysmart.app"
+        applicationId "com.simplysmart.providesk"
         minSdkVersion 19
         targetSdkVersion 22
-//        versionCode 8
-//        versionName "1.1.6"
+//        versionCode 1
+//        versionName "1.0"
     }
 
     lintOptions {
@@ -22,25 +22,11 @@ android {
 
     signingConfigs {
 
-        release {
-            storeFile file('botsworth.jks')
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
-
         providesk {
             storeFile file('simplysmart.jks')
             storePassword RELEASE_STORE_PASSWORD_SIMPLYSMART
             keyAlias RELEASE_KEY_ALIAS_SIMPLYSMART
             keyPassword RELEASE_KEY_PASSWORD_SIMPLYSMART
-        }
-
-        chototel {
-            storeFile file('chototel.jks')
-            storePassword RELEASE_STORE_PASSWORD_CHOTOTEL
-            keyAlias RELEASE_KEY_ALIAS_CHOTOTEL
-            keyPassword RELEASE_KEY_PASSWORD_CHOTOTEL
         }
     }
 
@@ -60,7 +46,7 @@ android {
 
         providesk {
 
-            applicationId 'com.simplysmart.app.providesk'
+            applicationId 'com.simplysmart.providesk'
             versionCode 1
             versionName "1.0"
 
@@ -75,28 +61,6 @@ android {
 //                    def newName = output.outputFile.name
 //                    newName = newName.replace("app-", "Simply")
 //                    newName = newName.replace("release", "smart")
-//                    output.outputFile = new File(output.outputFile.parent, newName)
-//                }
-//            }
-        }
-
-        chototel {
-
-            applicationId 'com.simplysmart.app.chototel'
-            versionCode 5
-            versionName "1.0.1"
-
-            resValue "string", "app_name", "Chototel"
-            manifestPlaceholders = [
-                    appIcon: "@mipmap/ic_launcher",
-            ]
-
-            signingConfig signingConfigs.chototel
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def newName = output.outputFile.name
-//                    newName = newName.replace("appchototel-", "Chototel")
-//                    newName = newName.replace("release", "")
 //                    output.outputFile = new File(output.outputFile.parent, newName)
 //                }
 //            }

@@ -393,7 +393,7 @@
                     android:progressDrawable="@drawable/bg_progress_bar_average"
                     android:scrollbarThumbHorizontal="@drawable/ractangular_fill_red" />
 
-                <com.simplysmart.app.custom.MySeekBar
+                <com.simplysmart.providesk.custom.MySeekBar
                     android:id="@+id/electricity_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -507,7 +507,7 @@
                     android:progressDrawable="@drawable/bg_progress_bar_average"
                     android:scrollbarThumbHorizontal="@drawable/ractangular_fill_red" />
 
-                <com.simplysmart.app.custom.MySeekBar
+                <com.simplysmart.providesk.custom.MySeekBar
                     android:id="@+id/water_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -587,7 +587,7 @@
                     android:textColor="@color/bw_color_black"
                     android:textSize="11sp" />
 
-                <com.simplysmart.app.custom.MySeekBar
+                <com.simplysmart.providesk.custom.MySeekBar
                     android:id="@+id/maintenance_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
