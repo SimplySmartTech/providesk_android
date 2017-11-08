@@ -66,12 +66,6 @@ public class DrawerAdapter extends BaseAdapter {
             image.setTextSize(35);
         }
 
-        // set font to layout widgets
-//		Typeface typeFace = CustomFontsLoader.getTypeface(context, 1);
-//		if (typeFace != null) {
-//			text.setTypeface(typeFace);
-//		}
-
         return convertView;
     }
 }

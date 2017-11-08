@@ -49,7 +49,6 @@ import java.util.ArrayList;
  */
 public class LoginActivity extends BaseActivity {
 
-    private static final String PHONE_REGEX = "^(?:|[0-9]{10}|)$";
 
     private Context context;
     private EditText editUsername, editPassword;
@@ -409,9 +408,6 @@ public class LoginActivity extends BaseActivity {
 
         if (mobile.equals("")) {
             displayMessage(mContext.getResources().getString(R.string.error_enter_mobile_number));
-            return false;
-        } else if (!mobile.matches(PHONE_REGEX)) {
-            displayMessage(mContext.getResources().getString(R.string.error_invalid_mobile_number));
             return false;
         }
         if (Password.equals("")) {

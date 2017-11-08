@@ -164,7 +164,7 @@
     <string name="alert_save_planner_data">Do you want to save changes before exit?</string>
     <string name="error_no_internet_connection">Please check your internet connection.</string>
     <string name="error_in_network">Oops! something went wrong.</string>
-    <string name="error_enter_mobile_number">Please enter your Login ID (Mobile Number).</string>
+    <string name="error_enter_mobile_number">Please enter your Useranme.</string>
     <string name="error_invalid_mobile_number">Invalid Mobile Number, Please check.</string>
     <string name="error_enter_pin_number">Please enter your 6 digit Pin.</string>
     <string name="error_invalid_pin_number">Pin should be 6 digits.</string>

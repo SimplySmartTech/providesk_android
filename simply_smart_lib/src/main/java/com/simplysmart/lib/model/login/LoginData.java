@@ -10,6 +10,8 @@ public class LoginData implements Parcelable {
 
     private Resident resident;
 
+    private Resident user;
+
     protected LoginData(Parcel in) {
         resident = in.readParcelable(Resident.class.getClassLoader());
     }
@@ -27,6 +29,9 @@ public class LoginData implements Parcelable {
     };
 
     public Resident getResident() {
+        if (resident == null && user != null) {
+            return user;
+        }
         return resident;
     }
 

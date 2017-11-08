@@ -29,7 +29,7 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
 
-        simplysmart {
+        providesk {
             storeFile file('simplysmart.jks')
             storePassword RELEASE_STORE_PASSWORD_SIMPLYSMART
             keyAlias RELEASE_KEY_ALIAS_SIMPLYSMART
@@ -58,7 +58,7 @@ android {
 
     productFlavors {
 
-        simplysmart {
+        providesk {
 
             applicationId 'com.simplysmart.app.providesk'
             versionCode 1
@@ -69,7 +69,7 @@ android {
                     appIcon: "@mipmap/ic_launcher",
             ]
 
-            signingConfig signingConfigs.simplysmart
+            signingConfig signingConfigs.providesk
 //            applicationVariants.all { variant ->
 //                variant.outputs.each { output ->
 //                    def newName = output.outputFile.name
@@ -136,7 +136,7 @@ dependencies {
     //Used to parse google play store page
     compile 'org.jsoup:jsoup:1.8.3'
 
-    simplysmartCompile project(':payUMoneysdk')
+    provideskCompile project(':payUMoneysdk')
 
     //Aws libs
     compile 'com.amazonaws:aws-android-sdk-core:2.3.+'

@@ -7,6 +7,16 @@ public class LoginRequest {
 
     private Session session;
 
+    private boolean user_login;
+
+    public boolean isUser_login() {
+        return user_login;
+    }
+
+    public void setUser_login(boolean user_login) {
+        this.user_login = user_login;
+    }
+
     public Session getSession() {
         return session;
     }

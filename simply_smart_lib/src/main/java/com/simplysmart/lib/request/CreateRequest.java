@@ -75,6 +75,7 @@ public class CreateRequest {
         session.setDevice_id(CommonMethod.getDeviceId(context) + packageName);
         session.setNotification_token(gcmToken);
         request.setSession(session);
+        request.setUser_login(true);
 
         ApiInterface apiInterface = ServiceGeneratorV2.createService(ApiInterface.class);
 
