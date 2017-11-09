@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.simplysmart.lib.model.login.Unit;
+import com.simplysmart.lib.model.login.User;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,11 @@ public class Complaint implements Parcelable {
 
     private Unit unit;
 
+    private ArrayList<PermittedActions> permitted_events;
+    private String started_reason;
+
+    private User resident;
+
     public Complaint() {
 
     }
@@ -59,6 +65,9 @@ public class Complaint implements Parcelable {
         rejected_reason = in.readString();
         closed_reason = in.readString();
         unit = in.readParcelable(Unit.class.getClassLoader());
+        permitted_events = in.createTypedArrayList(PermittedActions.CREATOR);
+        started_reason = in.readString();
+        resident = in.readParcelable(User.class.getClassLoader());
     }
 
     @Override
@@ -82,6 +91,9 @@ public class Complaint implements Parcelable {
         dest.writeString(rejected_reason);
         dest.writeString(closed_reason);
         dest.writeParcelable(unit, flags);
+        dest.writeTypedList(permitted_events);
+        dest.writeString(started_reason);
+        dest.writeParcelable(resident, flags);
     }
 
     @Override
@@ -100,6 +112,30 @@ public class Complaint implements Parcelable {
             return new Complaint[size];
         }
     };
+
+    public ArrayList<PermittedActions> getPermitted_events() {
+        return permitted_events;
+    }
+
+    public void setPermitted_events(ArrayList<PermittedActions> permitted_events) {
+        this.permitted_events = permitted_events;
+    }
+
+    public String getStarted_reason() {
+        return started_reason;
+    }
+
+    public void setStarted_reason(String started_reason) {
+        this.started_reason = started_reason;
+    }
+
+    public User getResident() {
+        return resident;
+    }
+
+    public void setResident(User resident) {
+        this.resident = resident;
+    }
 
     public String getCategory_short_name() {
         return category_short_name;

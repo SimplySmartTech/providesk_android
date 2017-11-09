@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,12 +35,6 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.adapter.CommentListAdapter;
-import com.simplysmart.providesk.aws.AWSConstants;
-import com.simplysmart.providesk.aws.Util;
-import com.simplysmart.providesk.config.AppConstant;
-import com.simplysmart.providesk.dialog.AlertDialogComplaintInfo;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.CommonMethod;
 import com.simplysmart.lib.common.DebugLog;
@@ -49,6 +44,12 @@ import com.simplysmart.lib.model.helpdesk.ComplaintChat;
 import com.simplysmart.lib.model.helpdesk.ComplaintChatResponse;
 import com.simplysmart.lib.model.helpdesk.ComplaintDetailResponse;
 import com.simplysmart.lib.request.CreateRequest;
+import com.simplysmart.providesk.R;
+import com.simplysmart.providesk.adapter.CommentListAdapter;
+import com.simplysmart.providesk.aws.AWSConstants;
+import com.simplysmart.providesk.aws.Util;
+import com.simplysmart.providesk.config.AppConstant;
+import com.simplysmart.providesk.dialog.AlertDialogComplaintInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +74,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
     private TextView category_logo;
 
     private boolean isFromPush;
+    private boolean isClosed;
 
     private static final int REQUEST_TAKE_PHOTO = 1;
     public final static int REQUEST_GALLARY_PHOTO = 2;
@@ -144,8 +146,22 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.update_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem reset = menu.findItem(R.id.update_menu);
+        reset.setVisible(isClosed);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case android.R.id.home:
 
                 if (isFromPush) {
@@ -162,6 +178,11 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
                     }
                     super.onBackPressed();
                 }
+            case R.id.update_menu:
+                Intent updateStatusActivity = new Intent(this, UpdateComplaintStatusActivity.class);
+                updateStatusActivity.putExtra("complaint", complaint);
+                startActivity(updateStatusActivity);
+                break;
         }
         return true;
     }
@@ -242,6 +263,14 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             ll_new_comment.setVisibility(View.VISIBLE);
         } else {
             ll_new_comment.setVisibility(View.GONE);
+        }
+
+        if (complaint.getAasm_state().equalsIgnoreCase("closed") || complaint.getAasm_state().equalsIgnoreCase("blocked")) {
+            isClosed = false;
+            invalidateOptionsMenu();
+        } else {
+            isClosed = true;
+            invalidateOptionsMenu();
         }
 
         complaintStatus.setText(getString(R.string.icon_assign) + complaint.getAasm_state());

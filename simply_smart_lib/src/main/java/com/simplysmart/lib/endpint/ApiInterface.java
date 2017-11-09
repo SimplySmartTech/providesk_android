@@ -12,7 +12,9 @@ import com.simplysmart.lib.model.helpdesk.ComplaintDetailResponse;
 import com.simplysmart.lib.model.helpdesk.ComplaintFeedbackRequest;
 import com.simplysmart.lib.model.helpdesk.ComplaintFeedbackResponse;
 import com.simplysmart.lib.model.helpdesk.ComplaintRequest;
+import com.simplysmart.lib.model.helpdesk.ComplaintUpdateRequest;
 import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
+import com.simplysmart.lib.model.helpdesk.MessageResponseClass;
 import com.simplysmart.lib.model.login.ChangePasswordRequest;
 import com.simplysmart.lib.model.login.LoginRequest;
 import com.simplysmart.lib.model.login.LoginResponse;
@@ -195,5 +197,10 @@ public interface ApiInterface {
                                             @Query("subdomain") String subDomain,
                                             @Query("site_id") String site_id);
 
+
+    @PUT("/cms/complaints/{complaintId}")
+    Call<MessageResponseClass> updateComplaintStatus(@Path("complaintId") String complaintId,
+                                                     @Query("subdomain") String subDomain,
+                                                     @Body ComplaintUpdateRequest complaint);
 
 }

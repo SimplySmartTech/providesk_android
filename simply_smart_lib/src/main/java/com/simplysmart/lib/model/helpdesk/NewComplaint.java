@@ -13,29 +13,18 @@ public class NewComplaint implements Parcelable {
     private String description;
     private String priority;
     private String of_type;
+
     private String resident_id;
     private String category_id;
     private String sub_category_id;
+
     private String unit_id;
+    private String unit_info;
+
+    private String parent_ticket;
+    private boolean is_dependant;
+
     private ArrayList<String> assets;
-
-
-    @Override
-    public String toString() {
-        return "NewComplaint{" +
-                "description='" + description + '\'' +
-                ", priority='" + priority + '\'' +
-                ", of_type='" + of_type + '\'' +
-                ", resident_id='" + resident_id + '\'' +
-                ", category_id='" + category_id + '\'' +
-                ", sub_category_id='" + sub_category_id + '\'' +
-                ", unit_id='" + unit_id + '\'' +
-                ", assets=" + assets +
-                '}';
-    }
-
-    public NewComplaint() {
-    }
 
     protected NewComplaint(Parcel in) {
         description = in.readString();
@@ -45,6 +34,9 @@ public class NewComplaint implements Parcelable {
         category_id = in.readString();
         sub_category_id = in.readString();
         unit_id = in.readString();
+        unit_info = in.readString();
+        parent_ticket = in.readString();
+        is_dependant = in.readByte() != 0;
         assets = in.createStringArrayList();
     }
 
@@ -57,6 +49,9 @@ public class NewComplaint implements Parcelable {
         dest.writeString(category_id);
         dest.writeString(sub_category_id);
         dest.writeString(unit_id);
+        dest.writeString(unit_info);
+        dest.writeString(parent_ticket);
+        dest.writeByte((byte) (is_dependant ? 1 : 0));
         dest.writeStringList(assets);
     }
 
@@ -76,6 +71,50 @@ public class NewComplaint implements Parcelable {
             return new NewComplaint[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "NewComplaint{" +
+                "description='" + description + '\'' +
+                ", priority='" + priority + '\'' +
+                ", of_type='" + of_type + '\'' +
+                ", resident_id='" + resident_id + '\'' +
+                ", category_id='" + category_id + '\'' +
+                ", sub_category_id='" + sub_category_id + '\'' +
+                ", unit_id='" + unit_id + '\'' +
+                ", unit_info='" + unit_info + '\'' +
+                ", parent_ticket='" + parent_ticket + '\'' +
+                ", is_dependant=" + is_dependant +
+                ", assets=" + assets +
+                '}';
+    }
+
+    public NewComplaint() {
+    }
+
+    public String getUnit_info() {
+        return unit_info;
+    }
+
+    public void setUnit_info(String unit_info) {
+        this.unit_info = unit_info;
+    }
+
+    public String getParent_ticket() {
+        return parent_ticket;
+    }
+
+    public void setParent_ticket(String parent_ticket) {
+        this.parent_ticket = parent_ticket;
+    }
+
+    public boolean is_dependant() {
+        return is_dependant;
+    }
+
+    public void setIs_dependant(boolean is_dependant) {
+        this.is_dependant = is_dependant;
+    }
 
     public String getDescription() {
         return description;

@@ -23,7 +23,9 @@ import com.simplysmart.lib.model.helpdesk.ComplaintDetailResponse;
 import com.simplysmart.lib.model.helpdesk.ComplaintFeedbackRequest;
 import com.simplysmart.lib.model.helpdesk.ComplaintFeedbackResponse;
 import com.simplysmart.lib.model.helpdesk.ComplaintRequest;
+import com.simplysmart.lib.model.helpdesk.ComplaintUpdateRequest;
 import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
+import com.simplysmart.lib.model.helpdesk.MessageResponseClass;
 import com.simplysmart.lib.model.helpdesk.NewComplaint;
 import com.simplysmart.lib.model.login.ChangePasswordRequest;
 import com.simplysmart.lib.model.login.LoginRequest;
@@ -871,6 +873,32 @@ public class CreateRequest {
             @Override
             public void onFailure(Call<BillDetailResponse> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void updateComplaintStatus(String complaintId, ComplaintUpdateRequest request, final ApiCallback<MessageResponseClass> callback) {
+
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<MessageResponseClass> responseCall = apiInterface.updateComplaintStatus(
+                complaintId,
+                AppSessionData.getInstance().getSubdomain(),
+                request);
+
+        responseCall.enqueue(new Callback<MessageResponseClass>() {
+
+            @Override
+            public void onResponse(Call<MessageResponseClass> call, Response<MessageResponseClass> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    APIError error = ErrorUtils.parseError(response);
+                    callback.onFailure(error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MessageResponseClass> call, Throwable t) {
             }
         });
     }

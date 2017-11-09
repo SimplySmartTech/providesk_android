@@ -194,6 +194,7 @@
         Stay up to date with the App to enjoy the latest features and best performance.</string>
 
     <string name="error_enter_mandatory">All fields are mandatory.</string>
+    <string name="update">Update</string>
 
     <string name="error_current_password">Please enter your current password first.</string>
     <string name="error_new_password">Please enter your new password.</string>
