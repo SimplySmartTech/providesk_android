@@ -23,7 +23,7 @@ android {
     signingConfigs {
 
         providesk {
-            storeFile file('simplysmart.jks')
+            storeFile file('providesk.jks')
             storePassword RELEASE_STORE_PASSWORD_SIMPLYSMART
             keyAlias RELEASE_KEY_ALIAS_SIMPLYSMART
             keyPassword RELEASE_KEY_PASSWORD_SIMPLYSMART
@@ -45,7 +45,6 @@ android {
     productFlavors {
 
         providesk {
-
             applicationId 'com.simplysmart.providesk'
             versionCode 1
             versionName "1.0"
@@ -56,16 +55,15 @@ android {
             ]
 
             signingConfig signingConfigs.providesk
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def newName = output.outputFile.name
-//                    newName = newName.replace("app-", "Simply")
-//                    newName = newName.replace("release", "smart")
-//                    output.outputFile = new File(output.outputFile.parent, newName)
-//                }
-//            }
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def newName = output.outputFile.name
+                    newName = newName.replace("app-", "Provi")
+                    newName = newName.replace("release", "desk")
+                    output.outputFile = new File(output.outputFile.parent, newName)
+                }
+            }
         }
-
     }
 }
 
@@ -75,7 +73,6 @@ ext {
 }
 
 dependencies {
-
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -107,6 +104,8 @@ dependencies {
     compile 'com.amazonaws:aws-android-sdk-cognito:2.3.+'
     compile 'com.amazonaws:aws-android-sdk-s3:2.3.+'
     compile 'com.amazonaws:aws-android-sdk-ddb:2.3.+'
+
+
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
