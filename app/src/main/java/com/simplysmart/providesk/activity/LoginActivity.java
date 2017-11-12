@@ -387,6 +387,7 @@ public class LoginActivity extends BaseActivity {
 
         preferencesEditor.putBoolean("isLogin", true);
 
+        preferencesEditor.putBoolean("isUserLogin", response.getData().isUserLogin());
         preferencesEditor.putString("name", residentData.getName());
         preferencesEditor.putString("email", residentData.getEmail());
         preferencesEditor.putString("mobile", residentData.getMobile());

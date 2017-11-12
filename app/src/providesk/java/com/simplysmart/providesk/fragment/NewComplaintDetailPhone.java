@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.simplysmart.lib.model.categories.v2.SubCategory;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.activity.AddNewComplaintActivity;
 import com.simplysmart.providesk.activity.ComplaintDetailScreenActivity;
@@ -30,7 +31,6 @@ import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.CloudinaryImage;
 import com.simplysmart.lib.common.DebugLog;
 import com.simplysmart.lib.config.NetworkUtilities;
-import com.simplysmart.lib.model.categories.SubCategories;
 import com.simplysmart.lib.model.common.CommonResponse;
 import com.simplysmart.lib.model.helpdesk.NewComplaint;
 import com.simplysmart.lib.model.login.Unit;
@@ -49,7 +49,7 @@ public class NewComplaintDetailPhone extends BaseFragment {
     private TextView complaintButton, requestButton;
     private Spinner subCategorySpinner;
     private ImageView imageOne;
-    private ArrayList<SubCategories> subCategories;
+    private ArrayList<SubCategory> subCategories;
     private ArrayList<Unit> units;
     private ArrayList<String> imageUrlList = new ArrayList<>();
     private Typeface textTypeface;
@@ -142,12 +142,12 @@ public class NewComplaintDetailPhone extends BaseFragment {
         category_id = bundle.getString(CreateNewComplaintPhone.KEY_CATEGORY_ID);
         category_name = bundle.getString(CreateNewComplaintPhone.KEY_CATEGORY_NAME);
 
-        subCategories = gson.fromJson(params_subcategories, new TypeToken<ArrayList<SubCategories>>() {
+        subCategories = gson.fromJson(params_subcategories, new TypeToken<ArrayList<SubCategory>>() {
         }.getType());
 
         sub_category_id = (subCategories != null ? subCategories.get(0).getId() : null);
 
-        ArrayAdapter<SubCategories> list = new ArrayAdapter<>(getActivity(), R.layout.custom_item_unit_spinner, subCategories);
+        ArrayAdapter<SubCategory> list = new ArrayAdapter<>(getActivity(), R.layout.custom_item_unit_spinner, subCategories);
 
         if (subCategories == null) return;
 

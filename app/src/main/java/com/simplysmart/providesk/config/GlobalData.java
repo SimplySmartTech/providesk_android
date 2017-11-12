@@ -18,7 +18,7 @@ public class GlobalData extends Application {
     private String authToken;
     private String api_key;
     private String residentId;
-
+    private boolean isUserLogin=false;
     private String bookingId;
 
     private boolean isChanged = false;
@@ -30,6 +30,14 @@ public class GlobalData extends Application {
     private ArrayList<MainMenu> menus;
 
     private AccessPolicy accessPolicy;
+
+    public boolean isUserLogin() {
+        return isUserLogin;
+    }
+
+    public void setUserLogin(boolean userLogin) {
+        isUserLogin = userLogin;
+    }
 
     public String getBookingId() {
         return bookingId;

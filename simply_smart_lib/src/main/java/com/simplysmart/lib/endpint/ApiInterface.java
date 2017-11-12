@@ -2,7 +2,6 @@ package com.simplysmart.lib.endpint;
 
 import com.simplysmart.lib.model.bill.BillDetailResponse;
 import com.simplysmart.lib.model.bots.BotResponse;
-import com.simplysmart.lib.model.categories.CategoriesResponse;
 import com.simplysmart.lib.model.categories.v2.CategoryResponse;
 import com.simplysmart.lib.model.common.CloudinaryCredential;
 import com.simplysmart.lib.model.common.CommonResponse;
@@ -73,9 +72,9 @@ public interface ApiInterface {
 
 
     //Fetch categories
-    @GET("/cms/categories")
-    Call<CategoriesResponse> fetchCategories(@Query("subdomain") String subDomain,
-                                             @Query("site_id") String site_id);
+//    @GET("/cms/categories")
+//    Call<CategoriesResponse> fetchCategories(@Query("subdomain") String subDomain,
+//                                             @Query("site_id") String site_id);
 
     //Fetch categories
     @GET("/cms/categories")

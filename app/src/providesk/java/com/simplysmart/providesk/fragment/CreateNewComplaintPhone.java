@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.simplysmart.lib.model.categories.v2.Category;
+import com.simplysmart.lib.model.categories.v2.CategoryResponse;
+import com.simplysmart.lib.model.categories.v2.SubCategory;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.custom.CustomButtonView;
-import com.google.gson.Gson;
-import com.simplysmart.lib.model.categories.CategoriesResponse;
-import com.simplysmart.lib.model.categories.CategoryField;
-import com.simplysmart.lib.model.categories.SubCategories;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class CreateNewComplaintPhone extends BaseFragment {
 
     private Activity _activity;
     private View rootView;
-    private HashMap<String, ArrayList<SubCategories>> hashMap;
+    private HashMap<String, ArrayList<SubCategory>> hashMap;
 
     public static final String KEY_CATEGORY_NAME = "category_name";
     public static final String KEY_CATEGORY_ID = "category_id";
@@ -68,18 +68,18 @@ public class CreateNewComplaintPhone extends BaseFragment {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                CategoriesResponse categoriesResponse;
+                CategoryResponse categoriesResponse;
                 SharedPreferences preferences = _activity.getSharedPreferences("CategoryInfo", Context.MODE_PRIVATE);
                 String category_string = preferences.getString("category_details", "");
                 hashMap = new HashMap<>();
                 Gson gson = new Gson();
                 int i = 0;
 
-                categoriesResponse = gson.fromJson(category_string, CategoriesResponse.class);
-                ArrayList<CategoryField> categoryLists = categoriesResponse.getData().getComplaint();
+                categoriesResponse = gson.fromJson(category_string, CategoryResponse.class);
+                ArrayList<Category> categoryLists = categoriesResponse.getCategories();
                 int categories_size = categoryLists.size();
                 for (i = 0; i < categories_size; i++) {
-                    CategoryField categoryField = categoryLists.get(i);
+                    Category categoryField = categoryLists.get(i);
                     CustomButtonView customButtonView = (CustomButtonView) rootView.findViewWithTag(categoryField.getName());
                     customButtonView.setTag(categoryField.getId());
                     hashMap.put(categoryField.getId(), categoryField.getSub_categories());
@@ -117,7 +117,7 @@ public class CreateNewComplaintPhone extends BaseFragment {
             String caption = switchIconSelection(v, previousId);
 
             String category_id = (String) v.getTag();
-            ArrayList<SubCategories> subCategories = hashMap.get(category_id);
+            ArrayList<SubCategory> subCategories = hashMap.get(category_id);
 
             Gson gson = new Gson();
             String params_subcategories = gson.toJson(subCategories);

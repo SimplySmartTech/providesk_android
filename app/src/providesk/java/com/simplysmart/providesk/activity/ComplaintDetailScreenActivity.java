@@ -49,6 +49,7 @@ import com.simplysmart.providesk.adapter.CommentListAdapter;
 import com.simplysmart.providesk.aws.AWSConstants;
 import com.simplysmart.providesk.aws.Util;
 import com.simplysmart.providesk.config.AppConstant;
+import com.simplysmart.providesk.config.GlobalData;
 import com.simplysmart.providesk.dialog.AlertDialogComplaintInfo;
 
 import java.io.File;
@@ -119,6 +120,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             complaint_id = getIntent().getStringExtra("complaint_id");
             getComplaintDetail(complaint_id);
         }
+
     }
 
     @Override
@@ -176,7 +178,6 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
                     } else {
                         super.onBackPressed();
                     }
-                    super.onBackPressed();
                 }
             case R.id.update_menu:
                 Intent updateStatusActivity = new Intent(this, UpdateComplaintStatusActivity.class);
@@ -265,12 +266,16 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             ll_new_comment.setVisibility(View.GONE);
         }
 
-        if (complaint.getAasm_state().equalsIgnoreCase("closed") || complaint.getAasm_state().equalsIgnoreCase("blocked")) {
-            isClosed = false;
-            invalidateOptionsMenu();
-        } else {
-            isClosed = true;
-            invalidateOptionsMenu();
+        if (GlobalData.getInstance().isUserLogin()) {
+            {
+                if (complaint.getAasm_state().equalsIgnoreCase("closed") || complaint.getAasm_state().equalsIgnoreCase("blocked")) {
+                    isClosed = false;
+                    invalidateOptionsMenu();
+                } else {
+                    isClosed = true;
+                    invalidateOptionsMenu();
+                }
+            }
         }
 
         complaintStatus.setText(getString(R.string.icon_assign) + complaint.getAasm_state());
@@ -352,7 +357,6 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
     }
 
     private void postComplaintComment(String compliant_id, String comment, String image_url) {
-
 
         buttonSend.setClickable(false);
 

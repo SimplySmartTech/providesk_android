@@ -734,6 +734,8 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         GlobalData.getInstance().setApiKey(UserInfo.getString("api_key", ""));
         GlobalData.getInstance().setResidentId(UserInfo.getString("resident_id", ""));
 
+        GlobalData.getInstance().setUserLogin(UserInfo.getBoolean("isUserLogin", false));
+
         Gson gson = new Gson();
         String jsonUnitInfo = UserInfo.getString("unit_info", "");
         Resident residentData = gson.fromJson(jsonUnitInfo, Resident.class);
@@ -785,7 +787,7 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 //                    } else if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName().equalsIgnoreCase("planner")) {
 //                        menuArray[i + 1] = "Parking";
 //                    } else {
-                        menuArray[i + 1] = GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName();
+                    menuArray[i + 1] = GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName();
 //                    }
 
                     if (GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() != null
@@ -799,7 +801,7 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 //                            iconArray[i + 1] = "&#xe606;";
 //
 //                        } else {
-                            iconArray[i + 1] = "&#x" + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() + ";";
+                        iconArray[i + 1] = "&#x" + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() + ";";
 //                        }
 
                     } else {

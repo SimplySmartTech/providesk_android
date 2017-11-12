@@ -12,7 +12,6 @@ import com.simplysmart.lib.endpint.WalletApiInterface;
 import com.simplysmart.lib.global.AppSessionData;
 import com.simplysmart.lib.model.bill.BillDetailResponse;
 import com.simplysmart.lib.model.bots.BotResponse;
-import com.simplysmart.lib.model.categories.CategoriesResponse;
 import com.simplysmart.lib.model.categories.v2.CategoryResponse;
 import com.simplysmart.lib.model.common.APIError;
 import com.simplysmart.lib.model.common.CloudinaryCredential;
@@ -274,32 +273,32 @@ public class CreateRequest {
         });
     }
 
-    public void fetchCategories(final ApiCallback<CategoriesResponse> callback) {
-
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<CategoriesResponse> responseCall = apiInterface.fetchCategories(
-                AppSessionData.getInstance().getSubdomain(),
-                AppSessionData.getInstance().getSite_id());
-
-        responseCall.enqueue(new Callback<CategoriesResponse>() {
-
-            @Override
-            public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
-
-                if (response.isSuccessful()) {
-                    callback.onSuccess(response.body());
-                } else {
-                    APIError error = ErrorUtils.parseError(response);
-                    callback.onFailure(error.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CategoriesResponse> call, Throwable t) {
-
-            }
-        });
-    }
+//    public void fetchCategories(final ApiCallback<CategoriesResponse> callback) {
+//
+//        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+//        Call<CategoriesResponse> responseCall = apiInterface.fetchCategories(
+//                AppSessionData.getInstance().getSubdomain(),
+//                AppSessionData.getInstance().getSite_id());
+//
+//        responseCall.enqueue(new Callback<CategoriesResponse>() {
+//
+//            @Override
+//            public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
+//
+//                if (response.isSuccessful()) {
+//                    callback.onSuccess(response.body());
+//                } else {
+//                    APIError error = ErrorUtils.parseError(response);
+//                    callback.onFailure(error.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CategoriesResponse> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     public void fetchCredential(final ApiCallback<CloudinaryCredential> callback) {
 
