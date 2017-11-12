@@ -6,29 +6,31 @@
     android:gravity="center"
     android:orientation="vertical">
 
-        <RelativeLayout
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/custom_progress_dialog" />
+
+        <include layout="@layout/custom_error_layout" />
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/custom_progress_dialog" />
-
-            <include layout="@layout/custom_error_layout" />
-
-            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/swipeRefreshLayout"
+            <ListView
+                android:id="@+id/helpdesk_open_listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:divider="@color/bw_color_light_gray"
+                android:dividerHeight="1dp" />
 
-                <ListView
-                    android:id="@+id/helpdesk_open_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:divider="@color/bw_color_light_gray"
-                    android:dividerHeight="1dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>

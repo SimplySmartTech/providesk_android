@@ -15,14 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.activity.LoginActivity;
-import com.simplysmart.providesk.config.AppConstant;
-import com.simplysmart.providesk.config.GlobalData;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.global.AppSessionData;
 import com.simplysmart.lib.model.common.CommonResponse;
 import com.simplysmart.lib.request.CreateRequest;
+import com.simplysmart.providesk.R;
+import com.simplysmart.providesk.activity.LoginActivity;
+import com.simplysmart.providesk.config.AppConstant;
+import com.simplysmart.providesk.config.GlobalData;
 
 public class AlertDialogLogout extends DialogFragment implements View.OnClickListener {
 
@@ -87,8 +87,6 @@ public class AlertDialogLogout extends DialogFragment implements View.OnClickLis
             dismiss();
         }
         if (v.getId() == R.id.dialogButtonPositive) {
-            GlobalData.mGlobalData = null;
-            AppSessionData.mGlobalData = null;
             postLogoutRequest();
             clearUserSessionData();
         }
@@ -99,10 +97,14 @@ public class AlertDialogLogout extends DialogFragment implements View.OnClickLis
         CreateRequest.getInstance().logoutRequestWithSubDomain(new ApiCallback<CommonResponse>() {
             @Override
             public void onSuccess(CommonResponse response) {
+                GlobalData.mGlobalData = null;
+                AppSessionData.mGlobalData = null;
             }
 
             @Override
             public void onFailure(String error) {
+                GlobalData.mGlobalData = null;
+                AppSessionData.mGlobalData = null;
             }
         });
     }

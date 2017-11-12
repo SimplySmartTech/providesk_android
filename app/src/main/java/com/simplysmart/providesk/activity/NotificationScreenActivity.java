@@ -73,7 +73,7 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
                         @Override
                         public void run() {
                             swipeRefreshLayout.setRefreshing(true);
-                            postGenericRequest();
+                            getNotificationList();
                         }
                     }
             );
@@ -132,12 +132,10 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
                 new ApiCallback<NotificationResponse>() {
                     @Override
                     public void onSuccess(NotificationResponse response) {
-
                     }
 
                     @Override
                     public void onFailure(String error) {
-
                     }
                 });
     }
@@ -150,7 +148,7 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
         no_data_found = (TextView) findViewById(R.id.no_data_found);
     }
 
-    private void postGenericRequest() {
+    private void getNotificationList() {
 
         no_data_found.setVisibility(View.GONE);
         CreateRequest.getInstance().getNotificationList("unread",
@@ -202,7 +200,7 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
     public void onRefresh() {
         if (NetworkUtilities.isInternet(this)) {
             swipeRefreshLayout.setRefreshing(true);
-            postGenericRequest();
+            getNotificationList();
         } else {
             no_data_found.setVisibility(View.VISIBLE);
             no_data_found.setText(this.getString(R.string.error_no_internet_connection));
@@ -222,7 +220,6 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
         super.onDestroy();
     }
 
-
     @Override
     protected int getStatusBarColor() {
         return R.color.colorPrimaryDark;
@@ -230,9 +227,9 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
-
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
                     getSupportActionBar().show();
                     getFragmentManager().popBackStack();
@@ -247,7 +244,7 @@ public class NotificationScreenActivity extends BaseActivity implements SwipeRef
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            postGenericRequest();
+            getNotificationList();
         }
     };
 }

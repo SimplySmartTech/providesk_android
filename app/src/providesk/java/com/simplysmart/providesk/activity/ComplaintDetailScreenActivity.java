@@ -120,7 +120,6 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             complaint_id = getIntent().getStringExtra("complaint_id");
             getComplaintDetail(complaint_id);
         }
-
     }
 
     @Override
@@ -156,7 +155,6 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem reset = menu.findItem(R.id.update_menu);
         reset.setVisible(isClosed);
-
         return true;
     }
 
@@ -165,7 +163,6 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
         switch (item.getItemId()) {
 
             case android.R.id.home:
-
                 if (isFromPush) {
                     Intent intent = new Intent(ComplaintDetailScreenActivity.this, HelpDeskScreenActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -179,6 +176,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
                         super.onBackPressed();
                     }
                 }
+                break;
             case R.id.update_menu:
                 Intent updateStatusActivity = new Intent(this, UpdateComplaintStatusActivity.class);
                 updateStatusActivity.putExtra("complaint", complaint);
@@ -252,7 +250,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
 
     private void setComplaintInfo() {
 
-        if (complaint.getAasm_state() != null && complaint.getAasm_state().equalsIgnoreCase("resolved")) {
+        if (complaint.getAasm_state() != null && complaint.getAasm_state().equalsIgnoreCase("resolved") && !GlobalData.getInstance().isUserLogin()) {
             Intent intent = new Intent(this, ComplaintFeedbackActivity.class);
             intent.putExtra("complaint_id", complaint_id);
             startActivity(intent);

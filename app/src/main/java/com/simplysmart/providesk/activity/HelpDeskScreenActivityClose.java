@@ -1,17 +1,16 @@
-package com.simplysmart.providesk.fragment;
+package com.simplysmart.providesk.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,17 +23,14 @@ import com.simplysmart.lib.model.helpdesk.HelpDeskData;
 import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
 import com.simplysmart.lib.request.CreateRequest;
 import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.activity.ComplaintDetailScreenActivity;
-import com.simplysmart.providesk.activity.ComplaintFeedbackActivity;
 import com.simplysmart.providesk.adapter.HelpdeskListAdapter;
 
 
 /**
  * Created by shekhar on 11/8/15.
  */
-public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HelpDeskScreenActivityClose extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private View view;
     private ListView helpdeskOpenList;
     //    private ProgressBar progressBar;
     private TextView no_data_found;
@@ -50,19 +46,21 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_helpdesk_close, container, false);
-        return view;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        setContentView(R.layout.tab_helpdesk_close);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Complaint History");
+
         page_no = 1;
         loadingMore = false;
         initializeView();
-
-        ((AppCompatActivity) _activity).getSupportActionBar().setTitle("Complaint History");
 
         swipeRefreshLayout.post(
                 new Runnable() {
@@ -76,54 +74,60 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
     }
 
     @Override
-    protected int getHeaderColor() {
-        return ContextCompat.getColor(_activity, R.color.colorPrimary);
-    }
-
-    @Override
-    protected String getHeaderTitle() {
-        return "Complaint History";
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(onComplaintModified, new IntentFilter("onComplaintModified"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(onComplaintModified, new IntentFilter("onComplaintModified"));
     }
 
     @Override
     public void onDestroy() {
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(onComplaintModified);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(onComplaintModified);
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportActionBar().show();
+                    getFragmentManager().popBackStack();
+                } else {
+                    super.onBackPressed();
+                }
+                break;
+        }
+        return true;
     }
 
     private void initializeView() {
 
-        helpdeskOpenList = (ListView) view.findViewById(R.id.helpdesk_open_listview);
-        no_data_found = (TextView) view.findViewById(R.id.no_data_found);
+        helpdeskOpenList = (ListView) findViewById(R.id.helpdesk_open_listview);
+        no_data_found = (TextView) findViewById(R.id.no_data_found);
 
 //        progressBar = (ProgressBar) view.findViewById(R.id.progressBar2);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         //add the footer before adding the adapter, else the footer will not load!
-        footer = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_progress_dialog, null, false);
+        footer = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_progress_dialog, null, false);
 
         helpdeskOpenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (listAdapter.getData().get(position).getAasm_state().equalsIgnoreCase("resolved")) {
-                    Intent newIntent = new Intent(getActivity(), ComplaintFeedbackActivity.class);
+                    Intent newIntent = new Intent(HelpDeskScreenActivityClose.this, ComplaintFeedbackActivity.class);
                     newIntent.putExtra("complaint_id", listAdapter.getData().get(position).getId());
-                    getActivity().startActivity(newIntent);
+                    startActivity(newIntent);
 
                 } else {
-                    if (NetworkUtilities.isInternet(getActivity())) {
-                        Intent newIntent = new Intent(getActivity(), ComplaintDetailScreenActivity.class);
+                    if (NetworkUtilities.isInternet(HelpDeskScreenActivityClose.this)) {
+                        Intent newIntent = new Intent(HelpDeskScreenActivityClose.this, ComplaintDetailScreenActivity.class);
                         newIntent.putExtra("complaint_id", listAdapter.getData().get(position).getId());
-                        getActivity().startActivity(newIntent);
+                        startActivity(newIntent);
                     } else {
 //                        displayMessage(_activity.getString(R.string.error_no_internet_connection));
                     }
@@ -151,7 +155,7 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
 //                    if (footer != null)
 //                        helpdeskOpenList.removeFooterView(footer);
 
-                    if (NetworkUtilities.isInternet(getActivity())) {
+                    if (NetworkUtilities.isInternet(HelpDeskScreenActivityClose.this)) {
 
 //                        if (page_no == 1)
 //                            progressBar.setVisibility(View.VISIBLE);
@@ -162,7 +166,7 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
                     } else {
                         if (page_no == 1) {
                             no_data_found.setVisibility(View.VISIBLE);
-                            no_data_found.setText(getActivity().getString(R.string.error_no_internet_connection));
+                            no_data_found.setText(getString(R.string.error_no_internet_connection));
                         }
 //                        helpdeskOpenList.removeFooterView(footer);
                     }
@@ -199,7 +203,7 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
         if (helpDeskData.hasComplaints()) {
 
             if (listAdapter == null || listAdapter.isEmpty()) {
-                listAdapter = new HelpdeskListAdapter(getActivity(), helpDeskData.getComplaintLists());
+                listAdapter = new HelpdeskListAdapter(this, helpDeskData.getComplaintLists());
                 helpdeskOpenList.setAdapter(listAdapter);
             } else {
                 listAdapter.addData((helpDeskData.getComplaintLists()));
@@ -237,7 +241,7 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        if (NetworkUtilities.isInternet(getActivity())) {
+        if (NetworkUtilities.isInternet(HelpDeskScreenActivityClose.this)) {
             if (listAdapter != null && !listAdapter.isEmpty()) {
                 listAdapter.clearData();
                 helpdeskOpenList.setAdapter(null);
@@ -250,5 +254,10 @@ public class HelpDeskScreenClose extends BaseFragment implements SwipeRefreshLay
             no_data_found.setVisibility(View.VISIBLE);
             no_data_found.setText(this.getString(R.string.error_no_internet_connection));
         }
+    }
+
+    @Override
+    protected int getStatusBarColor() {
+        return 0;
     }
 }

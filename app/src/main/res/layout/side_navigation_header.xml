@@ -64,6 +64,7 @@
                 android:textSize="16sp" />
 
             <RelativeLayout
+                android:id="@+id/unitSwitchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/drawer_item_height">
 

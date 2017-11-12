@@ -40,11 +40,20 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
+import com.simplysmart.lib.callback.ApiCallback;
+import com.simplysmart.lib.common.DebugLog;
+import com.simplysmart.lib.config.NetworkUtilities;
+import com.simplysmart.lib.model.helpdesk.HelpDeskData;
+import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
+import com.simplysmart.lib.model.login.AccessPolicy;
+import com.simplysmart.lib.model.login.Resident;
+import com.simplysmart.lib.request.CreateRequest;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.adapter.CallPagerAdapter;
 import com.simplysmart.providesk.adapter.DrawerAdapter;
@@ -55,7 +64,6 @@ import com.simplysmart.providesk.dialog.AlertDialogLogout;
 import com.simplysmart.providesk.dialog.AlertDialogUpdateVersion;
 import com.simplysmart.providesk.fragment.ElectricityMeterScreen;
 import com.simplysmart.providesk.fragment.EwalletScreen;
-import com.simplysmart.providesk.fragment.HelpDeskScreenClose;
 import com.simplysmart.providesk.fragment.PlannerScreen;
 import com.simplysmart.providesk.fragment.SensorInfoList;
 import com.simplysmart.providesk.fragment.SensorInfoTodayList;
@@ -64,15 +72,6 @@ import com.simplysmart.providesk.gcm.QuickstartPreferences;
 import com.simplysmart.providesk.model.Items;
 import com.simplysmart.providesk.services.FetchCategories;
 import com.simplysmart.providesk.util.VersionComprator;
-import com.simplysmart.lib.callback.ApiCallback;
-import com.simplysmart.lib.common.DebugLog;
-import com.simplysmart.lib.config.NetworkUtilities;
-import com.simplysmart.lib.global.AppSessionData;
-import com.simplysmart.lib.model.helpdesk.HelpDeskData;
-import com.simplysmart.lib.model.helpdesk.HelpDeskResponse;
-import com.simplysmart.lib.model.login.AccessPolicy;
-import com.simplysmart.lib.model.login.Resident;
-import com.simplysmart.lib.request.CreateRequest;
 
 import org.jsoup.Jsoup;
 
@@ -87,8 +86,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by shekhar on 23/4/17.
  */
 public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
-
-    private boolean isHome;
 
     private ListView helpdeskOpenList;
     private TextView no_data_found;
@@ -125,7 +122,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 
     private boolean updatePaymentBroadcastFlag = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +134,8 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("ProviDesk");
 
-        isHome = true;
+        getUserInfo();
+
         initializeView();
 
         page_no = 1;
@@ -163,7 +160,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
             getVersionCode.execute();
         }
 
-//        menuCLickList.put("home", null);
         menuCLickList.put("payment", new EwalletScreen());
         menuCLickList.put("electricity", new ElectricityMeterScreen());
         menuCLickList.put("water", new WaterMeterScreen());
@@ -171,8 +167,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         menuCLickList.put("helpdesk", null);
         menuCLickList.put("planner", new PlannerScreen());
         menuCLickList.put("sensors_dummy", null);
-
-        getUserInfo();
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -190,7 +184,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
             }
         };
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Typeface textTypeface = Typeface.createFromAsset(getAssets(), AppConstant.FONT_EUROSTILE_REGULAR_MID);
@@ -226,6 +219,8 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         mDrawerList.addHeaderView(header, null, true);
         mDrawerList.addFooterView(footer, null, true);
 
+        RelativeLayout unitSwitchLayout = (RelativeLayout) header.findViewById(R.id.unitSwitchLayout);
+
         header_unit_name = ((TextView) header.findViewById(R.id.header_unit_name));
         footer_sign_out = ((TextView) footer.findViewById(R.id.footer_sign_out));
         header_unit_icon = ((TextView) header.findViewById(R.id.header_unit_icon));
@@ -241,7 +236,12 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
             GlobalData.getInstance().setUpdatedUnitName(GlobalData.getInstance().getUnits().get(0).getInfo());
             GlobalData.getInstance().setDemoUnitId(GlobalData.getInstance().getUnits().get(0).getId());
         }
-//        getSupportActionBar().setTitle(GlobalData.getInstance().getUpdatedUnitName());
+
+        if (GlobalData.getInstance().isUserLogin()) {
+            unitSwitchLayout.setVisibility(View.GONE);
+        } else {
+            unitSwitchLayout.setVisibility(View.VISIBLE);
+        }
 
         header_unit_name.setText(GlobalData.getInstance().getUpdatedUnitName());
 
@@ -253,20 +253,9 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         header_unit_name.setOnClickListener(unitSelectionListener);
         header_unit_icon.setOnClickListener(unitSelectionListener);
 
-        if (AppSessionData.getInstance().getSubdomain() != null && AppSessionData.getInstance().getSubdomain().equalsIgnoreCase("chototel")) {
-            profilePhoto.setOnClickListener(unitSelectionListener);
-            profileText.setVisibility(View.INVISIBLE);
-        } else {
-            if (GlobalData.getInstance().getAccessPolicy().getCompany_type() != null &&
-                    GlobalData.getInstance().getAccessPolicy().getCompany_type().equalsIgnoreCase("township")) {
-                profilePhoto.setOnClickListener(profileClickListener);
-                profileText.setOnClickListener(profileClickListener);
-                profileText.setVisibility(View.VISIBLE);
-            } else {
-                profilePhoto.setOnClickListener(unitSelectionListener);
-                profileText.setVisibility(View.INVISIBLE);
-            }
-        }
+        profilePhoto.setOnClickListener(profileClickListener);
+        profileText.setOnClickListener(profileClickListener);
+        profileText.setVisibility(View.VISIBLE);
 
         DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) mDrawerList.getLayoutParams();
         lp.width = calculateDrawerWidth();
@@ -276,9 +265,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         setNavigationMenu(menuArray, iconArray);
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-//        if (savedInstanceState == null) {
-//            selectItem(1);
-//        }
     }
 
     private void initializeView() {
@@ -293,7 +279,13 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (listAdapter.getData().get(position).getAasm_state().equalsIgnoreCase("resolved")) {
+                if (GlobalData.getInstance().isUserLogin()) {
+                    if (NetworkUtilities.isInternet(HelpDeskScreenActivity.this)) {
+                        Intent newIntent = new Intent(HelpDeskScreenActivity.this, ComplaintDetailScreenActivity.class);
+                        newIntent.putExtra("complaint_id", listAdapter.getData().get(position).getId());
+                        startActivity(newIntent);
+                    }
+                } else if (listAdapter.getData().get(position).getAasm_state().equalsIgnoreCase("resolved")) {
                     Intent newIntent = new Intent(HelpDeskScreenActivity.this, ComplaintFeedbackActivity.class);
                     newIntent.putExtra("complaint_id", listAdapter.getData().get(position).getId());
                     startActivity(newIntent);
@@ -309,6 +301,12 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         });
 
         FloatingActionButton newButton = (FloatingActionButton) findViewById(R.id.newButton);
+
+        if (GlobalData.getInstance().isUserLogin()) {
+            newButton.setVisibility(View.GONE);
+        } else {
+            newButton.setVisibility(View.VISIBLE);
+        }
 
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -339,7 +337,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem reset = menu.findItem(R.id.action_history);
-        reset.setVisible(isHome);
         return true;
     }
 
@@ -347,8 +344,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                isHome = true;
-                invalidateOptionsMenu();
                 if (getFragmentManager().getBackStackEntryCount() > 1) {
                     getFragmentManager().popBackStack();
                 } else {
@@ -356,26 +351,12 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
                 }
                 break;
             case R.id.action_history:
-                isHome = false;
-                invalidateOptionsMenu();
-                Fragment historyComplaint = new HelpDeskScreenClose();
-                getFragmentManager().beginTransaction().addToBackStack(null)
-                        .replace(R.id.llContent, historyComplaint).commitAllowingStateLoss();
+                Intent intent = new Intent(this, HelpDeskScreenActivityClose.class);
+                startActivity(intent);
                 break;
         }
         return true;
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        isHome = true;
-//        invalidateOptionsMenu();
-//        if (getFragmentManager().getBackStackEntryCount() > 1) {
-//            getFragmentManager().popBackStack();
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
 
     private void handlePagination() {
 
@@ -518,10 +499,14 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         @Override
         public void onItemClick(@SuppressWarnings("rawtypes") AdapterView parent, View view, int position, long id) {
 
-            if (isAccountMenu) {
-                selectAccount(position);
+            if (GlobalData.getInstance().isUserLogin() && position == 0) {
+
             } else {
-                selectItem(position);
+                if (isAccountMenu) {
+                    selectAccount(position);
+                } else {
+                    selectItem(position);
+                }
             }
         }
     }
@@ -898,7 +883,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
             e.printStackTrace();
         }
 
-        isHome = true;
         invalidateOptionsMenu();
         if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
