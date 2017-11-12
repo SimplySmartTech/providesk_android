@@ -186,8 +186,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 
         setSupportActionBar(toolbar);
 
-        Typeface textTypeface = Typeface.createFromAsset(getAssets(), AppConstant.FONT_EUROSTILE_REGULAR_MID);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -228,9 +226,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
         header_arrow_icon = ((TextView) header.findViewById(R.id.header_arrow_icon));
         profilePhoto = ((CircleImageView) header.findViewById(R.id.profilePhoto));
         profileText = (TextView) header.findViewById(R.id.profileText);
-
-        header_unit_name.setTypeface(textTypeface);
-        footer_sign_out.setTypeface(textTypeface);
 
         if (GlobalData.getInstance().getUnits() != null && GlobalData.getInstance().getUnits().size() > 0) {
             GlobalData.getInstance().setUpdatedUnitName(GlobalData.getInstance().getUnits().get(0).getInfo());
@@ -333,11 +328,6 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_helpdesk, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem reset = menu.findItem(R.id.action_history);
-        return true;
     }
 
     @Override
@@ -753,62 +743,20 @@ public class HelpDeskScreenActivity extends BaseActivity implements SwipeRefresh
 
         if (GlobalData.getInstance().getAccessPolicy().getMenu() != null && GlobalData.getInstance().getAccessPolicy().getMenu().size() > 0) {
 
-            if (GlobalData.getInstance().getAccessPolicy().getCompany_type().equalsIgnoreCase("township")) {
-                menuArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size() + 1];
-                iconArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size() + 1];
+            menuArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size()];
+            iconArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size()];
 
-                menuArray[0] = "home";
-                iconArray[0] = getResources().getString(R.string.icon_myflat);
+            for (int i = 0; i < GlobalData.getInstance().getAccessPolicy().getMenu().size(); i++) {
 
-                for (int i = 0; i < GlobalData.getInstance().getAccessPolicy().getMenu().size(); i++) {
+                DebugLog.d("Unit Info : " + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName());
+                menuArray[i] = GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName();
 
-                    DebugLog.d("Unit Info : " + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName());
+                if (GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() != null
+                        && !GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon().equalsIgnoreCase("")) {
 
-//                    //TODO: Kept it hardcoded for lodha parking demo
-//                    if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName().equalsIgnoreCase("electricity")) {
-//                        menuArray[i + 1] = "Shopping";
-//                    } else if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName().equalsIgnoreCase("water")) {
-//                        menuArray[i + 1] = "Amenities";
-//                    } else if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName().equalsIgnoreCase("planner")) {
-//                        menuArray[i + 1] = "Parking";
-//                    } else {
-                    menuArray[i + 1] = GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName();
-//                    }
-
-                    if (GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() != null
-                            && !GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon().equalsIgnoreCase("")) {
-
-//                        //TODO: Kept it hardcoded for lodha parking demo
-//                        if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon().equalsIgnoreCase("e602")) {
-//                            iconArray[i + 1] = "&#xe603;";
-//
-//                        } else if (residentData.getMobile().equalsIgnoreCase("9999999998") && GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon().equalsIgnoreCase("e60b")) {
-//                            iconArray[i + 1] = "&#xe606;";
-//
-//                        } else {
-                        iconArray[i + 1] = "&#x" + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() + ";";
-//                        }
-
-                    } else {
-                        iconArray[i + 1] = "";
-                    }
-                }
-            } else {
-                menuArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size()];
-                iconArray = new String[GlobalData.getInstance().getAccessPolicy().getMenu().size()];
-
-                for (int i = 0; i < GlobalData.getInstance().getAccessPolicy().getMenu().size(); i++) {
-
-                    DebugLog.d("Unit Info : " + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName());
-                    menuArray[i] = GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getName();
-
-                    if (GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() != null
-                            && !GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon().equalsIgnoreCase("")) {
-
-                        iconArray[i] = "&#x" + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() + ";";
-                    } else {
-                        iconArray[i] = getResources().getString(R.string.icon_myflat);
-                    }
+                    iconArray[i] = "&#x" + GlobalData.getInstance().getAccessPolicy().getMenu().get(i).getIcon() + ";";
+                } else {
+                    iconArray[i] = getResources().getString(R.string.icon_myflat);
                 }
             }
         }

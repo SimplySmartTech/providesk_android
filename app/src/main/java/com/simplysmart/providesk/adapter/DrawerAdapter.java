@@ -20,12 +20,10 @@ public class DrawerAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Items> navDrawerItems;
-    private Typeface textTypeface;
 
     public DrawerAdapter(Context context, ArrayList<Items> navDrawerItems) {
         this.context = context;
         this.navDrawerItems = navDrawerItems;
-        textTypeface = Typeface.createFromAsset(context.getAssets(), AppConstant.FONT_EUROSTILE_REGULAR_MID);
     }
 
     @Override
@@ -59,8 +57,6 @@ public class DrawerAdapter extends BaseAdapter {
 
         image.setText(Html.fromHtml(navDrawerItems.get(position).getIcon()));
         text.setText(navDrawerItems.get(position).getTitle());
-
-        text.setTypeface(textTypeface);
 
         if (position == 6) {
             image.setTextSize(35);
