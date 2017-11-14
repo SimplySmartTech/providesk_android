@@ -5,6 +5,6 @@
         android:name="com.simplysmart.providesk.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.simplysmart.app.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.simplysmart.providesk.permission.C2D_MESSAGE" />
 
 </manifest>

@@ -281,11 +281,11 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
         textComplaintNo.setText("# " + complaint.getNumber());
         textUnitNo.setText(complaint.getUnit_info());
 
-        if (complaint.getAasm_state() != null && complaint.getAasm_state().equalsIgnoreCase("assigned")) {
-            complaintStatus.setOnClickListener(openDialogClick);
-        } else {
-            complaintStatus.setOnClickListener(null);
-        }
+//        if (complaint.getAasm_state() != null && complaint.getAasm_state().equalsIgnoreCase("assigned")) {
+//            complaintStatus.setOnClickListener(openDialogClick);
+//        } else {
+//            complaintStatus.setOnClickListener(null);
+//        }
 
         category_logo.setText(complaint.getCategory_short_name());
         if (priorityColorMap.containsKey(complaint.getPriority())) {

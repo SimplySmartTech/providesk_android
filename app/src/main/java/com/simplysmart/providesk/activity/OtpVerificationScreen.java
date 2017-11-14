@@ -33,6 +33,7 @@ import com.simplysmart.lib.model.login.OtpRequest;
 import com.simplysmart.lib.model.login.Resident;
 import com.simplysmart.lib.request.CreateRequest;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class OtpVerificationScreen extends BaseActivity implements View.OnClickListener {
@@ -48,8 +49,10 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
     private RelativeLayout parentLayout;
     private TextView enterManually;
     private TextView resendOtp;
+    private TextView labelOtpSent2;
 
     private String userId = "";
+    private String mobileNumber = "";
     private String subDomain = "";
 
     private EditText inputDigitOne, inputDigitTwo, inputDigitThree, inputDigitFour, inputDigitFive, inputDigitSix;
@@ -66,10 +69,9 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         if (getIntent() != null && getIntent().getExtras() != null) {
             userId = getIntent().getStringExtra("userId");
             subDomain = getIntent().getStringExtra("subDomain");
+            mobileNumber = getIntent().getStringExtra("mobileNumber");
         }
-
         bindViews();
-
         startCountdownTimer();
     }
 
@@ -90,6 +92,8 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         resendOtp = (TextView) findViewById(R.id.resendOtp);
         resendButton = (TextView) findViewById(R.id.resendButton);
 
+        labelOtpSent2 = (TextView)findViewById(R.id.labelOtpSent2);
+
         bottomLayout = (LinearLayout) findViewById(R.id.bottomLayout);
         parentLayout = (RelativeLayout) findViewById(R.id.parentLayout);
 
@@ -101,6 +105,8 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         inputDigitSix = (EditText) findViewById(R.id.inputDigitSix);
 
         horizontalBar = (ProgressBar) findViewById(R.id.horizontalBar);
+
+        labelOtpSent2.setText("we've sent an OTP to "+mobileNumber);
 
         parentLayout.setOnClickListener(this);
         resendButton.setOnClickListener(this);
@@ -291,32 +297,11 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
                 DebugLog.d("message : " + message);
 
                 if (NetworkUtilities.isInternet(OtpVerificationScreen.this)) {
-                    verifyOtpRequest(message);
+                    verifyOtpRequest(message.substring(0, 6));
                 } else {
-//                    showSnackBar(parentLayout, "Please check your internet connection", false);
+                    showSnackBar(parentLayout, "Please check your internet connection");
                 }
             }
-
-//            if (message != null) {
-//
-//                if (message.contains(":")) {
-//                    String[] data = message.split(":");
-//
-//                    if (data.length > 0) {
-//                        String code = data[1].trim();
-//                        Log.d("sms", "code  : " + code);
-//
-//                        if (NetworkUtilities.isInternet(OtpVerificationScreen.this)) {
-//
-//
-//                        } else {
-////                            (getResources().getString(R.string.app_name), "Please check your internet connection", "", "Ok");
-//                        }
-//                    } else {
-//                        DebugLog.d("sms error split");
-//                    }
-//                }
-//            }
         }
     };
 
@@ -354,7 +339,6 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
                     public void onSuccess(CommonResponse response) {
                         dismissActivitySpinner();
 
-
                     }
 
                     @Override
@@ -363,39 +347,6 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
                         displayMessage(error);
                     }
                 });
-
-//        LoginRequest request = new LoginRequest();
-//        UserRegistration session = new UserRegistration();
-//
-//        String deviceId = CommonMethod.getDeviceId(this);
-//        DebugLog.d("device id : " + deviceId);
-//
-//        session.setDevice_id(deviceId);
-//        session.setMobile_number(mobileNumber);
-//        request.setUser(session);
-//
-//        showActivitySpinner();
-//        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-//        Call<CommonResponse> loginResponseCall = apiInterface.userOtpResend(request);
-//
-//        loginResponseCall.enqueue(new Callback<CommonResponse>() {
-//
-//            @Override
-//            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
-//                dismissActivitySpinner();
-//                if (response.isSuccessful()) {
-//                    showSnackBar(parentLayout, response.body().getMessage(), true);
-//                } else {
-//                    APIError error = ErrorUtils.parseError(response);
-//                    showSnackBar(parentLayout, error.getMessage(), false);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CommonResponse> call, Throwable t) {
-//                dismissActivitySpinner();
-//            }
-//        });
     }
 
     private void verifyOtpRequest(String otp) {
@@ -410,19 +361,24 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
                     public void onSuccess(LoginResponse response) {
                         dismissActivitySpinner();
 
-                        setUserData(response);
+                        try {
+                            setUserData(response);
 
-                        SharedPreferences ResetUserPreferences = OtpVerificationScreen.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
-                        boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
+                            SharedPreferences ResetUserPreferences = OtpVerificationScreen.this.getSharedPreferences("AppSettingsPreferences", Context.MODE_PRIVATE);
+                            boolean newInstallation = ResetUserPreferences.getBoolean("newInstallation", true);
 
-                        Intent i;
-                        if (newInstallation) {
-                            i = new Intent(OtpVerificationScreen.this, ChangePasswordActivity.class);
-                        } else {
-                            i = new Intent(OtpVerificationScreen.this, DashboardActivity.class);
+                            Intent i;
+                            if (newInstallation) {
+                                i = new Intent(OtpVerificationScreen.this, ChangePasswordActivity.class);
+                            } else {
+                                i = new Intent(OtpVerificationScreen.this, HelpDeskScreenActivity.class);
+                            }
+                            startActivity(i);
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            displayMessage("Error:" + Arrays.toString(e.getStackTrace()));
                         }
-                        startActivity(i);
-                        finish();
                     }
 
                     @Override

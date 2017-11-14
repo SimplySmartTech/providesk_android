@@ -26,11 +26,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.config.StringConstants;
-import com.simplysmart.providesk.dialog.AlertDialogRegistrationConfirmation;
-import com.simplysmart.providesk.gcm.QuickstartPreferences;
-import com.simplysmart.providesk.gcm.RegistrationIntentService;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.CommonMethod;
 import com.simplysmart.lib.common.DebugLog;
@@ -40,6 +35,11 @@ import com.simplysmart.lib.model.login.AccessPolicy;
 import com.simplysmart.lib.model.login.LoginResponse;
 import com.simplysmart.lib.model.login.Resident;
 import com.simplysmart.lib.request.CreateRequest;
+import com.simplysmart.providesk.R;
+import com.simplysmart.providesk.config.StringConstants;
+import com.simplysmart.providesk.dialog.AlertDialogRegistrationConfirmation;
+import com.simplysmart.providesk.gcm.QuickstartPreferences;
+import com.simplysmart.providesk.gcm.RegistrationIntentService;
 
 import java.util.ArrayList;
 
@@ -62,6 +62,7 @@ public class LoginActivity extends BaseActivity {
     private boolean registrationFlag = false;
 
     private String userId = "";
+    private String mobileNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,11 +237,12 @@ public class LoginActivity extends BaseActivity {
 
                                     if (resident != null && !resident.isActive()) {
                                         userId = resident.getId();
+                                        mobileNumber = resident.getMobile();
                                         subDomain = response.getSubdomain();
                                         CreateRequest.getInstance().loadSessionData(resident.getApi_key(), resident.getAuth_token(), response.getSubdomain(), "");
                                         registrationFlag = true;
                                         AlertDialogRegistrationConfirmation
-                                                .newInstance(getString(R.string.app_name), "Account Deactivated!\n Please verify your mobile number to activate you Providesk Account", "Exit", "GET OTP")
+                                                .newInstance(getString(R.string.app_name), "Please verify your mobile number continue.", "Exit", "GET OTP")
                                                 .show(getSupportFragmentManager(), "");
                                     } else {
 
@@ -334,6 +336,7 @@ public class LoginActivity extends BaseActivity {
                                     Resident resident = response.getData().getResident();
                                     if (resident != null && !resident.isActive()) {
                                         userId = resident.getId();
+                                        mobileNumber = resident.getMobile();
                                         subDomain = response.getSubdomain();
                                         CreateRequest.getInstance().loadSessionData(resident.getApi_key(), resident.getAuth_token(), response.getSubdomain(), "");
                                         registrationFlag = true;
@@ -561,6 +564,7 @@ public class LoginActivity extends BaseActivity {
                         Intent intent = new Intent(LoginActivity.this, OtpVerificationScreen.class);
                         intent.putExtra("userId", userId);
                         intent.putExtra("subDomain", subDomain);
+                        intent.putExtra("mobileNumber", mobileNumber);
                         startActivity(intent);
                     }
 

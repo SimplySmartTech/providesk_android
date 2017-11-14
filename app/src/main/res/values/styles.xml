@@ -38,6 +38,10 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="ProgressTheme" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
     <!-- Style for custom progress dialog-->
     <style name="progress_Custom_Dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
