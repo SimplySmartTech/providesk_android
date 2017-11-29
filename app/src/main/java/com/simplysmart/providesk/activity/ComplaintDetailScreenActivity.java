@@ -454,7 +454,7 @@ public class ComplaintDetailScreenActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 ((Activity) context).startActivityForResult(pickPhoto, REQUEST_GALLARY_PHOTO);
                 dialog.dismiss();
             }

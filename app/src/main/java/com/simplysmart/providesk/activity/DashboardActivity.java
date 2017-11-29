@@ -41,6 +41,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.payUMoney.sdk.SdkConstants;
+import com.simplysmart.lib.common.DebugLog;
+import com.simplysmart.lib.config.NetworkUtilities;
+import com.simplysmart.lib.global.AppSessionData;
+import com.simplysmart.lib.model.login.AccessPolicy;
+import com.simplysmart.lib.model.login.Resident;
+import com.simplysmart.lib.request.CreateRequest;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.adapter.CallPagerAdapter;
 import com.simplysmart.providesk.adapter.DrawerAdapter;
@@ -59,12 +65,6 @@ import com.simplysmart.providesk.gcm.QuickstartPreferences;
 import com.simplysmart.providesk.model.Items;
 import com.simplysmart.providesk.services.FetchCategories;
 import com.simplysmart.providesk.util.VersionComprator;
-import com.simplysmart.lib.common.DebugLog;
-import com.simplysmart.lib.config.NetworkUtilities;
-import com.simplysmart.lib.global.AppSessionData;
-import com.simplysmart.lib.model.login.AccessPolicy;
-import com.simplysmart.lib.model.login.Resident;
-import com.simplysmart.lib.request.CreateRequest;
 
 import org.jsoup.Jsoup;
 
@@ -595,7 +595,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        android.app.FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getFragmentManager();
         DebugLog.d("back count : " + fm.getBackStackEntryCount());
 
         try {

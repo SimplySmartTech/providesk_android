@@ -9,8 +9,8 @@ android {
         applicationId "com.simplysmart.providesk"
         minSdkVersion 19
         targetSdkVersion 22
-//        versionCode 1
-//        versionName "1.0"
+        versionCode 3
+        versionName "1.0.3"
     }
 
     lintOptions {
@@ -24,9 +24,9 @@ android {
 
         providesk {
             storeFile file('providesk.jks')
-            storePassword RELEASE_STORE_PASSWORD_SIMPLYSMART
-            keyAlias RELEASE_KEY_ALIAS_SIMPLYSMART
-            keyPassword RELEASE_KEY_PASSWORD_SIMPLYSMART
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
         }
     }
 
@@ -39,20 +39,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
-        }
-    }
-
-    productFlavors {
-
-        providesk {
-            applicationId 'com.simplysmart.providesk'
-            versionCode 2
-            versionName "1.0.1"
-
-            resValue "string", "app_name", "ProviDesk"
-            manifestPlaceholders = [
-                    appIcon: "@mipmap/ic_launcher",
-            ]
 
             signingConfig signingConfigs.providesk
             applicationVariants.all { variant ->
@@ -84,27 +70,30 @@ dependencies {
 
     compile project(':simply_smart_lib')
 
+    //Parse json object to pogo
     compile 'com.google.code.gson:gson:2.7'
 
+    //Network library
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
 
+    //Handle image loading
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    //----- Circular image view
+    //Circular image view
     compile 'de.hdodenhof:circleimageview:2.0.0'
 
-    //Used to parse google play store page
+    //Parse google play store page
     compile 'org.jsoup:jsoup:1.8.3'
 
-    provideskCompile project(':payUMoneysdk')
+    //PayUMoney payment gateway sdk
+    compile project(':payUMoneysdk')
 
     //Aws libs
     compile 'com.amazonaws:aws-android-sdk-core:2.3.+'
     compile 'com.amazonaws:aws-android-sdk-cognito:2.3.+'
     compile 'com.amazonaws:aws-android-sdk-s3:2.3.+'
     compile 'com.amazonaws:aws-android-sdk-ddb:2.3.+'
-
 
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

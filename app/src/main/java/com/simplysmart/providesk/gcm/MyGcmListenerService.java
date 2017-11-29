@@ -13,12 +13,12 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
+import com.simplysmart.lib.model.notification.Notification;
+import com.simplysmart.lib.model.notification.PushNotificationData;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.activity.ComplaintDetailScreenActivity;
 import com.simplysmart.providesk.activity.NotificationScreenActivity;
 import com.simplysmart.providesk.activity.SplashActivity;
-import com.simplysmart.lib.model.notification.Notification;
-import com.simplysmart.lib.model.notification.PushNotificationData;
 
 /**
  * Created by shekhar on 17/11/15.

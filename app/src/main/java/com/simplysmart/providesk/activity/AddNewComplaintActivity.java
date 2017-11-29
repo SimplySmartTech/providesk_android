@@ -25,11 +25,11 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.simplysmart.lib.common.DebugLog;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.aws.AWSConstants;
 import com.simplysmart.providesk.aws.Util;
 import com.simplysmart.providesk.fragment.CreateNewComplaintPhone;
-import com.simplysmart.lib.common.DebugLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,7 +117,7 @@ public class AddNewComplaintActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 ((Activity) context).startActivityForResult(pickPhoto, REQUEST_GALLARY_PHOTO);
                 dialog.dismiss();
             }
