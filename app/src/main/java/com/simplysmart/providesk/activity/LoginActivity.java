@@ -341,7 +341,7 @@ public class LoginActivity extends BaseActivity {
                                         CreateRequest.getInstance().loadSessionData(resident.getApi_key(), resident.getAuth_token(), response.getSubdomain(), "");
                                         registrationFlag = true;
                                         AlertDialogRegistrationConfirmation
-                                                .newInstance(getString(R.string.app_name), "Account Deactivated!\n Please verify your mobile number to activate you Providesk Account", "Exit", "GET OTP")
+                                                .newInstance(getString(R.string.app_name), "Please verify your mobile number continue.", "Exit", "GET OTP")
                                                 .show(getSupportFragmentManager(), "");
                                     } else {
                                         setUserData(response);
@@ -566,6 +566,7 @@ public class LoginActivity extends BaseActivity {
                         intent.putExtra("subDomain", subDomain);
                         intent.putExtra("mobileNumber", mobileNumber);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override

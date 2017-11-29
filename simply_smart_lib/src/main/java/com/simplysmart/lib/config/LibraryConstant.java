@@ -18,6 +18,8 @@ public class LibraryConstant {
     public static final String PROTOCOL = "http://";
 //    public static final String DOMAIN = "114.143.133.250:3000";
 
+//    public static final String DOMAIN = "192.168.1.41:3000";
+
     public static final String SERVER_URL = PROTOCOL + DOMAIN;
 
     // Http request header content

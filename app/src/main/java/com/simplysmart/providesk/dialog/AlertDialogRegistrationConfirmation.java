@@ -22,8 +22,8 @@ public class AlertDialogRegistrationConfirmation extends DialogFragment implemen
     private static final String KEY_NEGATIVE_BUTTON = "negativeButton";
     private static final String KEY_POSITIVE_BUTTON = "positiveButton";
 
-    public static AlertDialogRegistrationConfirmation newInstance(String title, String message, String negativeButton,
-                                                                  String positiveButton) {
+    public static AlertDialogRegistrationConfirmation newInstance(String title, String message, String negativeButton, String positiveButton) {
+
         AlertDialogRegistrationConfirmation f = new AlertDialogRegistrationConfirmation();
 
         Bundle args = new Bundle();
