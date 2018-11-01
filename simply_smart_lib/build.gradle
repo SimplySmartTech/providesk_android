@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 23
+        minSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -19,34 +18,34 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
     //----- Support Libs
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
 
     //----- Google play service for GCM
-    compile "com.google.android.gms:play-services-gcm:8.1.0"
+    implementation "com.google.android.gms:play-services-gcm:16.0.0"
 
     //----- Retrofit
-    compile('com.squareup.retrofit2:retrofit:2.2.0') {
+    implementation('com.squareup.retrofit2:retrofit:2.2.0') {
         // exclude Retrofit’s OkHttp peer-dependency module and define your own module import
         exclude module: 'okhttp'
     }
-    compile ('com.squareup.retrofit2:converter-simplexml:2.2.0'){
+    implementation ('com.squareup.retrofit2:converter-simplexml:2.2.0'){
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
         exclude group: 'xpp3', module: 'xpp3'
     }
 
-    compile "com.squareup.retrofit2:converter-gson:2.2.0"
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.3.1'
+    implementation "com.squareup.retrofit2:converter-gson:2.2.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.3.1'
 
     //----- Picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
-    compile files('libs/cloudinary-android-1.2.2.jar')
-    compile files('libs/cloudinary-core-1.2.2.jar')
+    implementation files('libs/cloudinary-android-1.2.2.jar')
+    implementation files('libs/cloudinary-core-1.2.2.jar')
 }

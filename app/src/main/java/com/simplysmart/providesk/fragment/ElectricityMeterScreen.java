@@ -20,16 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.activity.ElectricityBillDetailsScreenActivity;
-import com.simplysmart.providesk.config.AppConstant;
-import com.simplysmart.providesk.config.GlobalData;
-import com.simplysmart.providesk.custom.ProgressBarView;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.DebugLog;
 import com.simplysmart.lib.config.NetworkUtilities;
-import com.simplysmart.lib.config.ServiceGenerator;
-import com.simplysmart.lib.endpint.DemoApiInterface;
 import com.simplysmart.lib.global.AppSessionData;
 import com.simplysmart.lib.model.bots.Bot;
 import com.simplysmart.lib.model.bots.BotData;
@@ -37,13 +30,16 @@ import com.simplysmart.lib.model.bots.BotResponse;
 import com.simplysmart.lib.model.bots.BotStatus;
 import com.simplysmart.lib.model.bots.LastPayment;
 import com.simplysmart.lib.request.CreateRequest;
+import com.simplysmart.providesk.R;
+import com.simplysmart.providesk.activity.ElectricityBillDetailsScreenActivity;
+import com.simplysmart.providesk.config.AppConstant;
+import com.simplysmart.providesk.config.GlobalData;
+import com.simplysmart.providesk.custom.ProgressBarView;
 
 import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 
 /**
  * Created by shekhar on 4/8/15.
@@ -613,37 +609,37 @@ public class ElectricityMeterScreen extends BaseFragment {
 
     private void callBotStatusRequest(String request_for) {
 
-        progressBar.setVisibility(View.VISIBLE);
-        no_data_found.setVisibility(View.GONE);
-
-        DemoApiInterface apiInterface = ServiceGenerator.createService(DemoApiInterface.class);
-        Call<BotStatus> botStatusCall = apiInterface.botStatus(
-                GlobalData.getInstance().getDemoUnitId(),
-                AppConstant.ELECTRICITY_BOT, request_for,
-                AppSessionData.getInstance().getSubdomain(),
-                AppSessionData.getInstance().getSite_id());
-
-        botStatusCall.enqueue(new Callback<BotStatus>() {
-
-            @Override
-            public void onResponse(Call<BotStatus> call, retrofit2.Response<BotStatus> response) {
-
-                progressBar.setVisibility(View.GONE);
-                if (response.isSuccessful()) {
-                    DebugLog.d("status.getMessage() : " + response.body().getMessage());
-                    DebugLog.d("status.getCutoff() : " + response.body().getCutoff());
-                    DebugLog.d("status.getBot_alive() : " + response.body().getBot_alive());
-                    DebugLog.d("status.getCurrent_reading() : " + response.body().getCurrent_reading());
-
-                    updateUI(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BotStatus> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+//        progressBar.setVisibility(View.VISIBLE);
+//        no_data_found.setVisibility(View.GONE);
+//
+//        DemoApiInterface apiInterface = ServiceGenerator.createService(DemoApiInterface.class);
+//        Call<BotStatus> botStatusCall = apiInterface.botStatus(
+//                GlobalData.getInstance().getDemoUnitId(),
+//                AppConstant.ELECTRICITY_BOT, request_for,
+//                AppSessionData.getInstance().getSubdomain(),
+//                AppSessionData.getInstance().getSite_id());
+//
+//        botStatusCall.enqueue(new Callback<BotStatus>() {
+//
+//            @Override
+//            public void onResponse(Call<BotStatus> call, retrofit2.Response<BotStatus> response) {
+//
+//                progressBar.setVisibility(View.GONE);
+//                if (response.isSuccessful()) {
+//                    DebugLog.d("status.getMessage() : " + response.body().getMessage());
+//                    DebugLog.d("status.getCutoff() : " + response.body().getCutoff());
+//                    DebugLog.d("status.getBot_alive() : " + response.body().getBot_alive());
+//                    DebugLog.d("status.getCurrent_reading() : " + response.body().getCurrent_reading());
+//
+//                    updateUI(response.body());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BotStatus> call, Throwable t) {
+//                progressBar.setVisibility(View.GONE);
+//            }
+//        });
     }
 
     private void updateUI(BotStatus status) {

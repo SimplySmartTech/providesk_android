@@ -2,21 +2,18 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.simplysmart.providesk"
         minSdkVersion 19
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 3
         versionName "1.0.3"
     }
 
     lintOptions {
         checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
         abortOnError false
     }
 
@@ -36,17 +33,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
+
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             signingConfig signingConfigs.providesk
+
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    def newName = output.outputFile.name
-                    newName = newName.replace("app-", "Provi")
-                    newName = newName.replace("release", "desk")
-                    output.outputFile = new File(output.outputFile.parent, newName)
+                    variant.outputs.all {
+                        outputFileName = "${variant.name}-${variant.versionName}.apk"
+                    }
                 }
             }
         }
@@ -54,48 +52,48 @@ android {
 }
 
 ext {
-    SUPPORT_LIB_VERSION = "24.0.0"
-    GOOGLE_PLAY_SERVICE_VERSION = "9.6.1"
+    SUPPORT_LIB_VERSION = "26.1.0"
+    GOOGLE_PLAY_SERVICE_VERSION = "16.0.0"
 }
 
 dependencies {
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
 
-    compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
-    compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
-    compile "com.android.support:cardview-v7:${SUPPORT_LIB_VERSION}"
-    compile "com.google.android.gms:play-services-gcm:${GOOGLE_PLAY_SERVICE_VERSION}"
+    implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:cardview-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.google.android.gms:play-services-gcm:${GOOGLE_PLAY_SERVICE_VERSION}"
 
-    compile project(':simply_smart_lib')
+    implementation project(':simply_smart_lib')
 
     //Parse json object to pogo
-    compile 'com.google.code.gson:gson:2.7'
+    implementation 'com.google.code.gson:gson:2.7'
 
     //Network library
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp:2.3.0'
+    implementation 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'com.squareup.okhttp:okhttp:2.3.0'
 
     //Handle image loading
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Circular image view
-    compile 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:2.0.0'
 
     //Parse google play store page
-    compile 'org.jsoup:jsoup:1.8.3'
+    implementation 'org.jsoup:jsoup:1.8.3'
 
     //PayUMoney payment gateway sdk
-    compile project(':payUMoneysdk')
+    implementation project(':payUMoneysdk')
 
     //Aws libs
-    compile 'com.amazonaws:aws-android-sdk-core:2.3.+'
-    compile 'com.amazonaws:aws-android-sdk-cognito:2.3.+'
-    compile 'com.amazonaws:aws-android-sdk-s3:2.3.+'
-    compile 'com.amazonaws:aws-android-sdk-ddb:2.3.+'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.3.+'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.3.+'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.3.+'
+    implementation 'com.amazonaws:aws-android-sdk-ddb:2.3.+'
 
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
