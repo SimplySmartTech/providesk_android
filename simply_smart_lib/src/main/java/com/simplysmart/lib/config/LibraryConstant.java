@@ -3,7 +3,7 @@ package com.simplysmart.lib.config;
 public class LibraryConstant {
 
     //Flag for debugging log mode
-    public static boolean isDebuggable = false;
+    public static boolean isDebuggable = true;
 
     //Timeout values
     public static final long READ_TIMEOUT = 60;

@@ -110,7 +110,7 @@ public class ParkingScreen extends BaseFragment {
                             + reg_c.getText().toString().trim()
                             + reg_d.getText().toString().trim());
                 } else {
-                    serverMessage.setText(getString(R.string.connect_to_internet));
+//                    serverMessage.setText(getString(R.string.connect_to_internet));
                 }
             }
         });
@@ -127,7 +127,7 @@ public class ParkingScreen extends BaseFragment {
                             + reg_c.getText().toString().trim()
                             + reg_d.getText().toString().trim());
                 } else {
-                    serverMessage.setText(getString(R.string.connect_to_internet));
+//                    serverMessage.setText(getString(R.string.connect_to_internet));
                 }
             }
         });

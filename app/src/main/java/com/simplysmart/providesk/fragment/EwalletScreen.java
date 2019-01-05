@@ -29,7 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.payUMoney.sdk.PayUmoneySdkInitilizer;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.adapter.TransactionListAdapter;
 import com.simplysmart.providesk.config.AppConstant;
@@ -315,7 +314,7 @@ public class EwalletScreen extends BaseFragment {
             @Override
             public void onSuccess(WalletCredentialResponse response) {
                 dismissActivitySpinner();
-                makePayment(response);
+//                makePayment(response);
                 enterAmount.setText("");
             }
 
@@ -326,62 +325,62 @@ public class EwalletScreen extends BaseFragment {
         });
     }
 
-    public void makePayment(WalletCredentialResponse response) {
-
-        double amount = 0;
-
-        if (response.getAmount() != null && !response.getAmount().equalsIgnoreCase("")) {
-            amount = Double.parseDouble(response.getAmount());
-        }
-
-        transactionId = response.getTxnid();
-        String phone = response.getPhone();
-        String productName = response.getProductinfo();
-        String firstName = response.getFirstname();
-        String txnId = response.getTxnid();
-        String email = response.getEmail();
-        String sUrl = response.getSurl();
-        String fUrl = response.getFurl();
-        String udf1 = "";
-        String udf2 = "";
-        String udf3 = "";
-        String udf4 = "";
-        String udf5 = "";
-        boolean isDebug = response.isSandbox();
-        String key = response.getKey();
-        String merchantId = response.getMerchant_id();
-
-        PayUmoneySdkInitilizer.PaymentParam.Builder builder = new PayUmoneySdkInitilizer.PaymentParam.Builder();
-
-        builder.setAmount(amount)
-                .setTnxId(txnId)
-                .setPhone(phone)
-                .setProductName(productName)
-                .setFirstName(firstName)
-                .setEmail(email)
-                .setsUrl(sUrl)
-                .setfUrl(fUrl)
-                .setUdf1(udf1)
-                .setUdf2(udf2)
-                .setUdf3(udf3)
-                .setUdf4(udf4)
-                .setUdf5(udf5)
-                .setIsDebug(isDebug)
-                .setKey(key)
-                .setMerchantId(merchantId);
-
-        PayUmoneySdkInitilizer.PaymentParam paymentParam = builder.build();
-        paymentParam.setMerchantHash(response.getPayment_hash());
-
-//        testing purpose
-//        String salt = WalletConstant.merchant_salt;
-//        String serverCalculatedHash = hashCal(key + "|" + txnId + "|" + amount + "|" + productName + "|"
-//                + firstName + "|" + email + "|" + udf1 + "|" + udf2 + "|" + udf3 + "|" + udf4 + "|" + udf5 + "|" + salt);
-//        paymentParam.setMerchantHash(serverCalculatedHash);
-
-        PayUmoneySdkInitilizer.startPaymentActivityForResult(getActivity(), paymentParam);
-
-    }
+//    public void makePayment(WalletCredentialResponse response) {
+//
+//        double amount = 0;
+//
+//        if (response.getAmount() != null && !response.getAmount().equalsIgnoreCase("")) {
+//            amount = Double.parseDouble(response.getAmount());
+//        }
+//
+//        transactionId = response.getTxnid();
+//        String phone = response.getPhone();
+//        String productName = response.getProductinfo();
+//        String firstName = response.getFirstname();
+//        String txnId = response.getTxnid();
+//        String email = response.getEmail();
+//        String sUrl = response.getSurl();
+//        String fUrl = response.getFurl();
+//        String udf1 = "";
+//        String udf2 = "";
+//        String udf3 = "";
+//        String udf4 = "";
+//        String udf5 = "";
+//        boolean isDebug = response.isSandbox();
+//        String key = response.getKey();
+//        String merchantId = response.getMerchant_id();
+//
+//        PayUmoneySdkInitilizer.PaymentParam.Builder builder = new PayUmoneySdkInitilizer.PaymentParam.Builder();
+//
+//        builder.setAmount(amount)
+//                .setTnxId(txnId)
+//                .setPhone(phone)
+//                .setProductName(productName)
+//                .setFirstName(firstName)
+//                .setEmail(email)
+//                .setsUrl(sUrl)
+//                .setfUrl(fUrl)
+//                .setUdf1(udf1)
+//                .setUdf2(udf2)
+//                .setUdf3(udf3)
+//                .setUdf4(udf4)
+//                .setUdf5(udf5)
+//                .setIsDebug(isDebug)
+//                .setKey(key)
+//                .setMerchantId(merchantId);
+//
+//        PayUmoneySdkInitilizer.PaymentParam paymentParam = builder.build();
+//        paymentParam.setMerchantHash(response.getPayment_hash());
+//
+////        testing purpose
+////        String salt = WalletConstant.merchant_salt;
+////        String serverCalculatedHash = hashCal(key + "|" + txnId + "|" + amount + "|" + productName + "|"
+////                + firstName + "|" + email + "|" + udf1 + "|" + udf2 + "|" + udf3 + "|" + udf4 + "|" + udf5 + "|" + salt);
+////        paymentParam.setMerchantHash(serverCalculatedHash);
+//
+//        PayUmoneySdkInitilizer.startPaymentActivityForResult(getActivity(), paymentParam);
+//
+//    }
 
     public static String hashCal(String str) {
         byte[] hashseq = str.getBytes();

@@ -69,29 +69,26 @@ dependencies {
     implementation project(':simply_smart_lib')
 
     //Parse json object to pogo
-    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.google.code.gson:gson:2.8.2'
 
     //Network library
     implementation 'com.squareup.retrofit:retrofit:1.9.0'
-    implementation 'com.squareup.okhttp:okhttp:2.3.0'
+    implementation 'com.squareup.okhttp:okhttp:2.7.2'
 
     //Handle image loading
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Circular image view
-    implementation 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     //Parse google play store page
     implementation 'org.jsoup:jsoup:1.8.3'
 
-    //PayUMoney payment gateway sdk
-    implementation project(':payUMoneysdk')
-
     //Aws libs
-    implementation 'com.amazonaws:aws-android-sdk-core:2.3.+'
-    implementation 'com.amazonaws:aws-android-sdk-cognito:2.3.+'
-    implementation 'com.amazonaws:aws-android-sdk-s3:2.3.+'
-    implementation 'com.amazonaws:aws-android-sdk-ddb:2.3.+'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.8.4'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.8.4'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.8.4'
+    implementation 'com.amazonaws:aws-android-sdk-ddb:2.8.4'
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

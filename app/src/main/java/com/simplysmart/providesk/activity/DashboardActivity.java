@@ -39,8 +39,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.payUMoney.sdk.PayUmoneySdkInitilizer;
-import com.payUMoney.sdk.SdkConstants;
 import com.simplysmart.lib.common.DebugLog;
 import com.simplysmart.lib.config.NetworkUtilities;
 import com.simplysmart.lib.global.AppSessionData;
@@ -663,39 +661,6 @@ public class DashboardActivity extends AppCompatActivity {
                     AlertDialogUpdateVersion.newInstance("New update available!", getResources().getString(R.string.update_app_message), "Later", "Update")
                             .show(getFragmentManager(), "Show update dialog");
                 }
-            }
-        }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == PayUmoneySdkInitilizer.PAYU_SDK_PAYMENT_REQUEST_CODE) {
-
-            updatePaymentBroadcastFlag = true;
-            DebugLog.d("PayU Callback : " + requestCode);
-
-            if (resultCode == RESULT_OK) {
-                String paymentId = data.getStringExtra(SdkConstants.PAYMENT_ID);
-                showDialogMessage("Payment successful for Reference Id : " + paymentId);
-                updatePaymentStatus(AppConstant.SUCCESS_CODE, paymentId);
-
-            } else if (resultCode == RESULT_CANCELED) {
-                showDialogMessage("Payment cancelled by user.");
-                updatePaymentStatus(AppConstant.CANCELLED_CODE, "");
-
-            } else if (resultCode == PayUmoneySdkInitilizer.RESULT_FAILED) {
-                if (data != null) {
-                    if (data.getStringExtra(SdkConstants.RESULT).equals("cancel")) {
-
-                    } else {
-                        showDialogMessage("Payment failed.");
-                        updatePaymentStatus(AppConstant.FAILURE_CODE, "");
-                    }
-                }
-                //Write your code if there's no result
-            } else if (resultCode == PayUmoneySdkInitilizer.RESULT_BACK) {
-                showDialogMessage("Payment cancelled by user.");
-                updatePaymentStatus(AppConstant.CANCELLED_CODE, "");
             }
         }
     }

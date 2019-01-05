@@ -1,54 +1,33 @@
 package com.simplysmart.providesk.activity;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.simplysmart.providesk.R;
-import com.simplysmart.providesk.config.StringConstants;
 import com.simplysmart.lib.callback.ApiCallback;
 import com.simplysmart.lib.common.CommonMethod;
-import com.simplysmart.lib.common.DebugLog;
-import com.simplysmart.lib.config.NetworkUtilities;
 import com.simplysmart.lib.model.common.CommonResponse;
 import com.simplysmart.lib.model.login.AccessPolicy;
 import com.simplysmart.lib.model.login.LoginResponse;
 import com.simplysmart.lib.model.login.OtpRequest;
 import com.simplysmart.lib.model.login.Resident;
 import com.simplysmart.lib.request.CreateRequest;
+import com.simplysmart.providesk.R;
+import com.simplysmart.providesk.config.StringConstants;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 public class OtpVerificationScreen extends BaseActivity implements View.OnClickListener {
 
-    private BottomSheetBehavior mBottomSheetBehavior;
-    private MyTimer timerTask;
-    private boolean isTimerRunning = false;
-    private TextView otpTimer;
-    private TextView waitingLabel;
-    private ProgressBar horizontalBar;
-
-    private LinearLayout bottomLayout;
-    private RelativeLayout parentLayout;
-    private TextView enterManually;
-    private TextView resendOtp;
     private TextView labelOtpSent2;
 
     private String userId = "";
@@ -57,14 +36,11 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
 
     private EditText inputDigitOne, inputDigitTwo, inputDigitThree, inputDigitFour, inputDigitFive, inputDigitSix;
     private TextView resendButton;
-    private View bottomSheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verification_screen);
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mySmsReceiver, new IntentFilter("smsreceiver"));
 
         if (getIntent() != null && getIntent().getExtras() != null) {
             userId = getIntent().getStringExtra("userId");
@@ -72,7 +48,6 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
             mobileNumber = getIntent().getStringExtra("mobileNumber");
         }
         bindViews();
-        startCountdownTimer();
     }
 
     @Override
@@ -82,20 +57,9 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
 
     private void bindViews() {
 
-        bottomSheet = findViewById(R.id.bottom_sheet1);
-        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-        otpTimer = (TextView) findViewById(R.id.otpTimer);
-        waitingLabel = (TextView) findViewById(R.id.waitingLabel);
-
-        enterManually = (TextView) findViewById(R.id.enterManually);
-        resendOtp = (TextView) findViewById(R.id.resendOtp);
         resendButton = (TextView) findViewById(R.id.resendButton);
 
         labelOtpSent2 = (TextView)findViewById(R.id.labelOtpSent2);
-
-        bottomLayout = (LinearLayout) findViewById(R.id.bottomLayout);
-        parentLayout = (RelativeLayout) findViewById(R.id.parentLayout);
 
         inputDigitOne = (EditText) findViewById(R.id.inputDigitOne);
         inputDigitTwo = (EditText) findViewById(R.id.inputDigitTwo);
@@ -104,14 +68,9 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         inputDigitFive = (EditText) findViewById(R.id.inputDigitFive);
         inputDigitSix = (EditText) findViewById(R.id.inputDigitSix);
 
-        horizontalBar = (ProgressBar) findViewById(R.id.horizontalBar);
-
         labelOtpSent2.setText("we've sent an OTP to "+mobileNumber);
 
-        parentLayout.setOnClickListener(this);
         resendButton.setOnClickListener(this);
-        enterManually.setOnClickListener(this);
-        resendOtp.setOnClickListener(this);
 
         inputDigitOne.clearFocus();
         inputDigitOne.addTextChangedListener(new TextWatcher() {
@@ -247,7 +206,6 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 1) {
                     CommonMethod.hideKeyboard(OtpVerificationScreen.this);
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
                     verifyOtpRequest(inputDigitOne.getText().toString().trim()
                             + inputDigitTwo.getText().toString().trim()
@@ -256,10 +214,6 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
                             + inputDigitFive.getText().toString().trim()
                             + inputDigitSix.getText().toString().trim());
 
-                    if (isTimerRunning) {
-                        isTimerRunning = false;
-                        timerTask.cancel();
-                    }
                 } else if (editable.length() == 0) {
                     inputDigitFive.requestFocus();
                     inputDigitFive.setSelection(inputDigitFive.getText().length());
@@ -268,60 +222,10 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
         });
     }
 
-    private void startCountdownTimer() {
-        timerTask = new MyTimer(30 * 1000, 1000);
-        timerTask.start();
-        isTimerRunning = true;
-        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (isTimerRunning) {
-            timerTask.cancel();
-            isTimerRunning = false;
-        }
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mySmsReceiver);
-    }
-
-    BroadcastReceiver mySmsReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (isTimerRunning) {
-                timerTask.cancel();
-                String message = intent.getStringExtra("SMS_MESSAGE");
-                DebugLog.d("message : " + message);
-
-                if (NetworkUtilities.isInternet(OtpVerificationScreen.this)) {
-                    verifyOtpRequest(message.substring(0, 6));
-                } else {
-                    showSnackBar(parentLayout, "Please check your internet connection");
-                }
-            }
-        }
-    };
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.parentLayout:
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                if (isTimerRunning) {
-                    isTimerRunning = false;
-                    timerTask.cancel();
-                }
-                break;
             case R.id.resendButton:
-                callResendOtpRequest();
-                break;
-            case R.id.enterManually:
-
-                break;
-            case R.id.resendOtp:
                 callResendOtpRequest();
                 break;
         }
@@ -423,31 +327,4 @@ public class OtpVerificationScreen extends BaseActivity implements View.OnClickL
 
     }
 
-    private class MyTimer extends CountDownTimer {
-
-        MyTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-            String hms = String.format("%02d",
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-            otpTimer.setText(hms);
-            if (millisUntilFinished < 10000) {
-                waitingLabel.setText("It is taking long. You may...");
-                bottomLayout.setVisibility(View.VISIBLE);
-            } else {
-                bottomLayout.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        @Override
-        public void onFinish() {
-            isTimerRunning = false;
-            otpTimer.setText("---");
-            otpTimer.setVisibility(View.INVISIBLE);
-        }
-    }
 }
