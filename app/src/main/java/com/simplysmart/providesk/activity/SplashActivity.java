@@ -11,8 +11,13 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.ImageView;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
+import com.simplysmart.providesk.BuildConfig;
 import com.simplysmart.providesk.R;
 import com.simplysmart.providesk.config.StringConstants;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Shekhar on 4/8/15.
@@ -34,6 +39,9 @@ public class SplashActivity extends BaseActivity {
 
         //Used for force fully reset application (logout forcefully) set flag true for reset user
         resetApplication(false);
+
+        //Disable crash for debug mode
+        configureCrashReporting();
 
         switchToNextActivity();
 
@@ -111,4 +119,9 @@ public class SplashActivity extends BaseActivity {
             finish();
         }
     };
+
+    private void configureCrashReporting() {
+        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+        Fabric.with(this, new Crashlytics.Builder().core(crashlyticsCore).build());
+    }
 }

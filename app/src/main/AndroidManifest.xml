@@ -21,8 +21,8 @@
     <application
         android:name=".config.GlobalData"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activity.SplashActivity"
@@ -152,16 +152,17 @@
             </intent-filter>
         </service>
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <!--AWS S3-->
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
-        <!-- SMS RECEIVER -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4fb4c8b8c1ce9da14fad436895b8bf9d6cba5222" />
 
     </application>
 
